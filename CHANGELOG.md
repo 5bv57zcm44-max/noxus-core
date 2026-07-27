@@ -13,3 +13,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 
 - Rebuild and revalidate the complete release payload manifest after Vite emits content-addressed
   assets, preventing stale UI filenames from entering the wheel.
+- Install the generated Django project's exact test dependencies in clean development environments.
+- Mount PostgreSQL 18 data at its supported parent directory and preserve failure logs and cleanup.
+- Install pinned Yarn in the Frappe image and correct the pinned Trivy security workflow inputs.

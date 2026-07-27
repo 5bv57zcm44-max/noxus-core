@@ -63,7 +63,7 @@ def compose(
 def main() -> None:
     workspace = Path(tempfile.mkdtemp(prefix="noxus-website-acceptance-"))
     project = workspace / "acceptance-website"
-    started = False
+    compose_attempted = False
     try:
         run(
             [
@@ -106,8 +106,8 @@ def main() -> None:
             ],
             cwd=project,
         )
+        compose_attempted = True
         compose(project, ["up", "--build", "--detach"])
-        started = True
         wait_for("http://127.0.0.1:8000/health/ready", timeout=600)
         wait_for("http://127.0.0.1:8000/api/schema/", timeout=120)
         compose(project, ["exec", "-T", "web", "python", "-m", "pytest", "-q"])
@@ -138,12 +138,12 @@ def main() -> None:
         compose(project, ["restart", "web"])
         wait_for("http://127.0.0.1:8000/health/ready", timeout=300)
     except Exception:
-        if started:
+        if compose_attempted:
             logs = compose(project, ["logs", "--no-color", "--tail", "500"], check=False)
             sys.stderr.write(logs.stdout + logs.stderr)
         raise
     finally:
-        if started:
+        if compose_attempted:
             compose(project, ["down", "--volumes", "--remove-orphans"], check=False)
         shutil.rmtree(workspace, ignore_errors=True)
 

@@ -707,8 +707,8 @@
     },
     {
       "path": "infrastructure/docker/images/backend.Dockerfile",
-      "sha256": "b5e5470158c48d61b98c8b4538530b1e253720fd32f98c6c7058120b76fef74a",
-      "size": 1878
+      "sha256": "09f2994b31771489afe43dc429447c7a1cd8be192d313373adc2bb30b69867af",
+      "size": 1921
     },
     {
       "path": "infrastructure/docker/images/proxy.Dockerfile",
@@ -762,8 +762,8 @@
     },
     {
       "path": "infrastructure/scripts/website_docker_acceptance.py",
-      "sha256": "b0257ed54e9095393eab91b33ced2c8d9615b900a3d3851a810549d1eaf7a00b",
-      "size": 4546
+      "sha256": "59540cc0e175fb64be53c83e8f6bc1cb122eebb667b044e735803a021f1cac59",
+      "size": 4586
     },
     {
       "path": "infrastructure/tests/test_tenant_isolation.py",

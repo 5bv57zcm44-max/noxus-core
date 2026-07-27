@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-noxus}
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
     secrets: [postgres_password]
-    volumes: [postgres_data:/var/lib/postgresql/data]
+    volumes: [postgres_data:/var/lib/postgresql]
     profiles: [development, production]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-noxus} -d $${POSTGRES_DB:-noxus}"]
