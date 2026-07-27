@@ -1,4 +1,4 @@
-.PHONY: bootstrap check test test-integration test-e2e build release-check
+.PHONY: bootstrap check test test-integration test-e2e build prepare-release release-check-local release-check
 
 bootstrap:
 	python -m pip install -e ".[dev]"
@@ -25,5 +25,12 @@ build:
 	npm run build
 	python -m build
 
-release-check:
+prepare-release:
+	npm run build
+	python infrastructure/scripts/build_release_manifest.py
+
+release-check-local: prepare-release
+	python infrastructure/scripts/verify_release.py
+
+release-check: prepare-release
 	python infrastructure/scripts/verify_release.py --containers

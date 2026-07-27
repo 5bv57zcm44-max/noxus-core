@@ -109,7 +109,10 @@ are adapters over an optional ERPNext installation, never core patches.
 - `make test` runs fast Python and frontend tests.
 - `make test-integration` runs service-dependent tests.
 - `make test-e2e` runs Playwright.
-- `make release-check` builds and validates release artifacts.
+- `make release-check-local` rebuilds the UI and release manifest, then validates every non-container
+  release gate.
+- `make release-check` additionally runs the destructive disposable container acceptance suites and
+  remains mandatory before publication.
 
 Deployment, backup, recovery, security, workflows, permissions, and troubleshooting documentation
 lives under `docs/`. CI and release automation create artifacts but public publication remains behind

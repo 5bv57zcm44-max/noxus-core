@@ -52,8 +52,8 @@
     },
     {
       "path": "docs/release-notes-1.0.0rc1.md",
-      "sha256": "c289f5546b3b7a9a27105ee64a62030fd0bb912603f068d3ed8cf61a13fcbd13",
-      "size": 733
+      "sha256": "7943382b97fd96646f618b9593c724b8ae4f4ded62b0d417b8076ff707bb380b",
+      "size": 1043
     },
     {
       "path": "docs/security-audit-exceptions.md",
@@ -62,8 +62,8 @@
     },
     {
       "path": "docs/testing.md",
-      "sha256": "61f479b95b8e713e354e199a287f7d57091a28c13223fa4f39adc202e09365ca",
-      "size": 920
+      "sha256": "c8e27c0f2cce1488037adbf6f1d02c542a08c617dfa736a17c8611993e4bee29",
+      "size": 1641
     },
     {
       "path": "docs/troubleshooting.md",
@@ -727,8 +727,8 @@
     },
     {
       "path": "infrastructure/scripts/build_release_manifest.py",
-      "sha256": "7ad750c7a03d4efa96a81199fb9e544a65e7cb8c24a07cf060d622555b0a0902",
-      "size": 2184
+      "sha256": "6e9063b9efae60e58ab5b223debfd3f9f7660f950f3dd05d7e4d04ae5b32b1af",
+      "size": 2630
     },
     {
       "path": "infrastructure/scripts/configure.sh",
@@ -757,8 +757,8 @@
     },
     {
       "path": "infrastructure/scripts/verify_release.py",
-      "sha256": "9e92483d4bf565b2b32d0fd60bd9e5350f815d57c7ee50cfc6cd794e98b46bc9",
-      "size": 5519
+      "sha256": "eea5f4643908edd1666b649fae20ba718c968c5cfb65238cf2d5813170b51d40",
+      "size": 5685
     },
     {
       "path": "infrastructure/scripts/website_docker_acceptance.py",
@@ -771,18 +771,18 @@
       "size": 2639
     },
     {
-      "path": "ui/dist/assets/index-DXL67c-K.js",
+      "path": "ui/dist/assets/index-BajrYKNB.js",
       "sha256": "31e7e70993c731ef56bebd45fac244438b1373d28e0ed9087ed3fdd62811f4a2",
       "size": 302018
     },
     {
-      "path": "ui/dist/assets/index-Sb7BM4vQ.css",
-      "sha256": "254fa7ee254220196d9b0f64c6c9e65b258b8d6e34f1596271ecbe25eed1aa87",
-      "size": 15064
+      "path": "ui/dist/assets/index-CPgcO8wi.css",
+      "sha256": "e5fdda669373afa7af8d03ebf232e96832e1789236172ade32a5923b404aa7de",
+      "size": 16682
     },
     {
       "path": "ui/dist/index.html",
-      "sha256": "dc75c215e6effe188d489ceae7ab38380d63c9997241bc686a26c916e2fff930",
+      "sha256": "96a4b5e0e473b0652cf9d68e865540c9f53b68454d2c2fde28635a306b21a8a5",
       "size": 459
     }
   ],

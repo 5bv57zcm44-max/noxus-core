@@ -4,11 +4,31 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+PAYLOAD_PATHS = ("frappe_apps", "infrastructure", "ui/dist", "docs", "LICENSE")
+EXCLUDED_PARTS = {
+    "__pycache__",
+    ".pytest_cache",
+    "node_modules",
+    "test-results",
+    "playwright-report",
+}
+
+
+def payload_paths() -> set[str]:
+    result: set[str] = set()
+    for name in PAYLOAD_PATHS:
+        source = ROOT / name
+        candidates = [source] if source.is_file() else source.rglob("*")
+        for candidate in candidates:
+            if candidate.is_file() and not EXCLUDED_PARTS.intersection(candidate.parts):
+                result.add(candidate.relative_to(ROOT).as_posix())
+    return result
 
 
 def test_release_manifest_matches_every_payload_file() -> None:
     manifest = json.loads((ROOT / "release-manifest.json").read_text(encoding="utf-8"))
     assert manifest["files"]
+    assert {entry["path"] for entry in manifest["files"]} == payload_paths()
     for entry in manifest["files"]:
         path = (ROOT / entry["path"]).resolve()
         assert ROOT.resolve() in path.parents

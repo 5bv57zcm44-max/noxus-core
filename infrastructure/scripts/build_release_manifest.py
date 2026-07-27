@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -21,6 +22,15 @@ IMAGE_DIGESTS = {
     "nginx": "sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284",
     "postgres": "sha256:1961f96e6029a02c3812d7cb329a3b03a3ac2bb067058dec17b0f5596aca9296",
 }
+
+
+def project_version() -> str:
+    with (ROOT / "pyproject.toml").open("rb") as pyproject:
+        document = tomllib.load(pyproject)
+    version = document.get("project", {}).get("version")
+    if not isinstance(version, str) or not version:
+        raise SystemExit("pyproject.toml does not declare project.version")
+    return version
 
 
 def files() -> list[dict[str, object]]:
@@ -45,7 +55,7 @@ def files() -> list[dict[str, object]]:
 def main() -> None:
     manifest = {
         "schema_version": 1,
-        "noxus_version": "1.0.0rc1",
+        "noxus_version": project_version(),
         "versions": {
             "python": "3.14.6",
             "frappe": "16.28.0",
@@ -57,9 +67,10 @@ def main() -> None:
         "files": files(),
         "image_digests": IMAGE_DIGESTS,
     }
-    (ROOT / "release-manifest.json").write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    target = ROOT / "release-manifest.json"
+    temporary = target.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary.replace(target)
 
 
 if __name__ == "__main__":

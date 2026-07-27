@@ -133,6 +133,9 @@ def main() -> None:
     run([command("npm"), "run", "typecheck"])
     run([command("npm"), "test"])
     run([command("npm"), "run", "build"])
+    # Vite asset names are content-addressed. Recheck after the build so a stale
+    # committed manifest fails before a wheel can be assembled.
+    verify_payload()
     run([command("npm"), "run", "test:e2e"])
     run([sys.executable, "-m", "pip_audit", "-r", "requirements-cli.lock"])
     run(
