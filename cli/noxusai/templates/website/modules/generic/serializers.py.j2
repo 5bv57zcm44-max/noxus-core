@@ -1,0 +1,19 @@
+from rest_framework import serializers
+
+from apps.core.models import resolve_translated_text
+from .models import [[ class_name ]]
+
+
+class [[ class_name ]]Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = [[ class_name ]]
+        fields = "__all__"
+        read_only_fields = ("created_at", "updated_at", "created_by", "updated_by", "deleted_at", "deleted_by")
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get("request")
+        language = request.headers.get("Accept-Language", "en") if request else "en"
+        data["resolved_title"] = resolve_translated_text(data["title"], language)
+        data["resolved_description"] = resolve_translated_text(data["description"], language)
+        return data

@@ -1,0 +1,41 @@
+FROM node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d AS node
+
+FROM python:3.14.6-slim-bookworm@sha256:86f975aca15cf04a40b399eebede9aea7c82eae084d1f1a0a6ef6bcaae871a30 AS runtime
+
+ARG FRAPPE_COMMIT=be4728af84ecdec9e3e555f0aca1a7766d3f1811
+ARG ERPNEXT_COMMIT=a5de60c357d531cb31da093f0b86301776965173
+ARG WITH_ERPNEXT=0
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH=/home/frappe/.local/bin:/home/frappe/frappe-bench/env/bin:$PATH
+
+COPY --from=node /usr/local/ /usr/local/
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+      build-essential curl git jq libffi-dev libjpeg62-turbo-dev libmariadb-dev libpq-dev \
+      libssl-dev mariadb-client pkg-config redis-tools wkhtmltopdf xvfb \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --shell /bin/bash frappe \
+    && python -m pip install --no-cache-dir frappe-bench==5.27.0
+
+USER frappe
+WORKDIR /home/frappe
+RUN git clone --filter=blob:none https://github.com/frappe/frappe.git /tmp/frappe \
+    && git -C /tmp/frappe checkout "$FRAPPE_COMMIT" \
+    && bench init --skip-assets --skip-redis-config-generation --frappe-path /tmp/frappe --python /usr/local/bin/python frappe-bench \
+    && rm -rf /tmp/frappe/.git
+
+COPY --chown=frappe:frappe frappe_apps /opt/noxus/apps
+COPY --chown=frappe:frappe infrastructure/scripts /opt/noxus/scripts
+WORKDIR /home/frappe/frappe-bench
+RUN for app in /opt/noxus/apps/*; do bench get-app "$app"; done \
+    && if [ "$WITH_ERPNEXT" = "1" ]; then \
+         git clone --filter=blob:none https://github.com/frappe/erpnext.git /tmp/erpnext \
+         && git -C /tmp/erpnext checkout "$ERPNEXT_COMMIT" \
+         && bench get-app /tmp/erpnext \
+         && rm -rf /tmp/erpnext/.git; \
+       fi \
+    && bench build --production
+
+EXPOSE 8000 9000
+CMD ["bench", "serve", "--port", "8000"]

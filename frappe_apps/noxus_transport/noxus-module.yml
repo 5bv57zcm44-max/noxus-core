@@ -1,0 +1,15 @@
+schema_version: 1
+name: noxus_transport
+display_name: Transport
+version: 1.0.0rc1
+description: Fleet, drivers, trips, stops, passenger manifests, documents, and location events
+publisher: NOXUS AI
+license: GPL-3.0-or-later
+category: operations
+dependencies: {required: ["noxus_core>=1.0.0rc1"], recommended: ["noxus_maintenance>=1.0.0rc1"], conflicts: []}
+platform: {python: ">=3.14,<3.15", frappe: ">=16.28,<17", erpnext: null}
+features: [vehicles, drivers, trips, stops, passengers, documents, location_events]
+roles: [Transport Manager, Dispatcher, Driver, Transport Viewer]
+permissions: [transport.read, transport.dispatch, transport.drive, transport.manage]
+workflows: [Trip Dispatch]
+api: {namespace: /api/v2/method/noxus_transport.api.v1}

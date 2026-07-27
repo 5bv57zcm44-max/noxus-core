@@ -1,0 +1,16 @@
+{
+  "name": "noxus-core-monorepo",
+  "private": true,
+  "packageManager": "npm@11.16.0",
+  "workspaces": ["ui"],
+  "scripts": {
+    "build": "npm --workspace ui run build",
+    "lint": "npm --workspace ui run lint",
+    "test": "npm --workspace ui run test",
+    "test:e2e": "npm --workspace ui run test:e2e",
+    "typecheck": "npm --workspace ui run typecheck"
+  },
+  "engines": {
+    "node": "24.18.0"
+  }
+}

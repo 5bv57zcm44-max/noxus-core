@@ -1,0 +1,5 @@
+[pre_model_sync]
+
+[post_model_sync]
+noxus_core.patches.v1_0.ensure_contracts.execute
+noxus_core.patches.v1_0.add_production_contract_fields.execute

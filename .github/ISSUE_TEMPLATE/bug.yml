@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible NOXUS defect
+body:
+  - type: markdown
+    attributes: {value: "Do not disclose security vulnerabilities here; follow SECURITY.md."}
+  - type: input
+    id: version
+    attributes: {label: NOXUS version}
+    validations: {required: true}
+  - type: textarea
+    id: reproduce
+    attributes: {label: Reproduction steps}
+    validations: {required: true}
+  - type: textarea
+    id: expected
+    attributes: {label: Expected and actual behavior}
+    validations: {required: true}
+  - type: textarea
+    id: environment
+    attributes: {label: Doctor output with secrets removed}
+*** Add File: D:\projects_2026\noxusAIcore\.github\ISSUE_TEMPLATE\feature.yml
+name: Feature request
+description: Propose a scoped product improvement
+body:
+  - type: textarea
+    id: problem
+    attributes: {label: User problem}
+    validations: {required: true}
+  - type: textarea
+    id: proposal
+    attributes: {label: Proposed behavior and alternatives}
+    validations: {required: true}

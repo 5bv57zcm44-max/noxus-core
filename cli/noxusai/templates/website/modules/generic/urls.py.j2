@@ -1,0 +1,7 @@
+from rest_framework.routers import DefaultRouter
+
+from .views import [[ class_name ]]ViewSet
+
+router = DefaultRouter()
+router.register("records", [[ class_name ]]ViewSet, basename="[[ module ]]")
+urlpatterns = router.urls

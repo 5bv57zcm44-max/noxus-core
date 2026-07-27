@@ -1,0 +1,15 @@
+schema_version: 1
+name: noxus_ai
+display_name: AI Assistant Connector
+version: 1.0.0rc1
+description: Disabled-by-default provider-neutral AI endpoint connector
+publisher: NOXUS AI
+license: GPL-3.0-or-later
+category: intelligence
+dependencies: {required: ["noxus_core>=1.0.0rc1"], recommended: [], conflicts: []}
+platform: {python: ">=3.14,<3.15", frappe: ">=16.28,<17", erpnext: null}
+features: [provider_registry, encrypted_credentials, endpoint_allowlist, health_checks]
+roles: [AI Integration Manager]
+permissions: [ai.read, ai.configure, ai.execute]
+workflows: []
+api: {namespace: /api/v2/method/noxus_ai.api.v1}

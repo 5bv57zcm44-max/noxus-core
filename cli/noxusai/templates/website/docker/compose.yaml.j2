@@ -1,0 +1,45 @@
+name: [[ project_name ]]
+services:
+  db:
+    image: postgres:18.4-bookworm@sha256:1961f96e6029a02c3812d7cb329a3b03a3ac2bb067058dec17b0f5596aca9296
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-noxus}
+      POSTGRES_USER: ${POSTGRES_USER:-noxus}
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets: [postgres_password]
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    profiles: [development, production]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-noxus} -d $${POSTGRES_DB:-noxus}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  web:
+    build: .
+    profiles: [development, production]
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.${NOXUS_DEPLOYMENT_PROFILE:-development}
+      POSTGRES_DB: ${POSTGRES_DB:-noxus}
+      POSTGRES_USER: ${POSTGRES_USER:-noxus}
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      DJANGO_SECRET_KEY_FILE: /run/secrets/django_secret
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,web}
+      DJANGO_CORS_ALLOWED_ORIGINS: ${DJANGO_CORS_ALLOWED_ORIGINS:-}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:-}
+      DJANGO_SECURE_SSL_REDIRECT: ${DJANGO_SECURE_SSL_REDIRECT:-true}
+    secrets: [django_secret, postgres_password]
+    depends_on:
+      db: {condition: service_healthy}
+    ports: ["${NOXUS_HTTP_PORT:-8000}:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+  django_secret:
+    file: ./secrets/django_secret.txt
+volumes:
+  postgres_data:

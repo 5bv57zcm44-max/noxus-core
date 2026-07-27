@@ -1,0 +1,60 @@
+name: Container acceptance
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "cli/**"
+      - "module_sdk/**"
+      - "frappe_apps/**"
+      - "infrastructure/**"
+      - "ui/**"
+      - "release-manifest.json"
+      - ".github/workflows/containers.yml"
+  push:
+    branches: [main]
+    paths:
+      - "cli/**"
+      - "module_sdk/**"
+      - "frappe_apps/**"
+      - "infrastructure/**"
+      - "ui/**"
+      - "release-manifest.json"
+      - ".github/workflows/containers.yml"
+permissions: {contents: read, security-events: write}
+jobs:
+  runtime:
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        erpnext: [false, true]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: "3.14", cache: pip}
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with: {node-version: "24.18.0", cache: npm}
+      - run: python -m pip install -e ".[dev]"
+      - run: npm ci && npm run build
+      - run: python infrastructure/scripts/build_release_manifest.py
+      - name: Website PostgreSQL acceptance
+        if: matrix.erpnext == false
+        run: python infrastructure/scripts/website_docker_acceptance.py
+      - name: Frappe-only acceptance
+        if: matrix.erpnext == false
+        run: python infrastructure/scripts/docker_acceptance.py
+      - name: ERPNext acceptance
+        if: matrix.erpnext == true
+        run: python infrastructure/scripts/docker_acceptance.py --with-erpnext
+      - uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # v0.33.1
+        with:
+          image-ref: "noxus-runtime:1.0.0rc1"
+          format: sarif
+          output: trivy-container.sarif
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+      - uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
+        if: always()
+        with: {sarif_file: trivy-container.sarif}

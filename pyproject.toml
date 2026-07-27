@@ -1,0 +1,118 @@
+[build-system]
+requires = ["hatchling==1.31.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "noxusai"
+version = "1.0.0rc1"
+description = "Build secure Django backends and modular Frappe business systems."
+readme = "README.md"
+requires-python = ">=3.11,<3.15"
+license = "GPL-3.0-or-later"
+authors = [{ name = "NOXUS AI" }]
+keywords = ["django", "frappe", "erpnext", "saas", "cli"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Framework :: Django",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+  "click==8.3.3",
+  "Jinja2==3.1.6",
+  "packaging==26.2",
+  "platformdirs==4.11.0",
+  "pydantic==2.12.5",
+  "PyYAML==6.0.3",
+  "rich==14.3.4",
+  "typer==0.27.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build==1.4.0",
+  "hatchling==1.31.0",
+  "mypy==1.19.1",
+  "pip-audit==2.9.0",
+  "pre-commit==4.5.1",
+  "pytest==9.0.3",
+  "pytest-cov==7.0.0",
+  "pytest-mock==3.15.1",
+  "ruff==0.15.6",
+  "twine==6.2.0",
+  "types-PyYAML==6.0.12.20250915",
+]
+
+[project.scripts]
+noxusai = "noxusai.main:run"
+
+[project.urls]
+Documentation = "https://github.com/AmrShalaby12/noxus-core/tree/main/docs"
+Issues = "https://github.com/AmrShalaby12/noxus-core/issues"
+Repository = "https://github.com/AmrShalaby12/noxus-core"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cli/noxusai", "module_sdk/noxus_module_sdk"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"frappe_apps" = "noxusai/payload/frappe_apps"
+"infrastructure" = "noxusai/payload/infrastructure"
+"ui/dist" = "noxusai/payload/ui/dist"
+"docs" = "noxusai/payload/docs"
+"LICENSE" = "noxusai/payload/LICENSE"
+"release-manifest.json" = "noxusai/payload/release-manifest.json"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/cli",
+  "/module_sdk",
+  "/website_starter",
+  "/frappe_apps",
+  "/infrastructure",
+  "/ui/src",
+  "/ui/dist",
+  "/docs",
+  "/README.md",
+  "/LICENSE",
+  "/release-manifest.json",
+]
+
+[tool.hatch.build.targets.sdist.force-include]
+"ui/dist" = "ui/dist"
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["cli/noxusai/tests", "module_sdk/tests", "website_starter/tests", "frappe_apps/tests"]
+markers = [
+  "integration: requires services or subprocesses",
+  "docker: requires a running Docker daemon",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = ["cli/noxusai/templates", "website_starter/templates"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "S", "RUF"]
+ignore = ["S101", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S603"]
+"infrastructure/scripts/**" = ["S603"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+pretty = true
+files = ["cli/noxusai", "module_sdk/noxus_module_sdk"]
+exclude = ["tests", "templates"]
+
+[[tool.mypy.overrides]]
+module = ["yaml"]
+ignore_missing_imports = true

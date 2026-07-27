@@ -1,0 +1,18 @@
+from django.db import models
+
+from apps.core.models import AuditedModel, validate_translated_text
+
+
+class [[ class_name ]](AuditedModel):
+    title = models.JSONField(validators=[validate_translated_text])
+    description = models.JSONField(default=dict, blank=True)
+    slug = models.SlugField(unique=True)
+    status = models.CharField(max_length=20, choices=[("draft", "Draft"), ("published", "Published")], default="draft", db_index=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ("sort_order", "id")
+        permissions = [("publish_record", "Can publish [[ display_name ]]")]
+
+    def __str__(self):
+        return self.slug

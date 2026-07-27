@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 30s
+scrape_configs:
+  - job_name: noxus
+    metrics_path: /api/v2/method/noxus_core.api.v1.health
+    static_configs:
+      - targets: [proxy:8080]

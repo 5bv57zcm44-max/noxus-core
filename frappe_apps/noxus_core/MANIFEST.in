@@ -1,0 +1,2 @@
+recursive-include noxus_core *.json *.yml *.yaml *.js *.css *.html
+include LICENSE

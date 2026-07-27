@@ -1,0 +1,82 @@
+services:
+  mariadb:
+    security_opt: [no-new-privileges:true]
+    stop_grace_period: 60s
+    deploy:
+      resources:
+        limits: {cpus: "4.0", memory: 4G}
+        reservations: {memory: 1G}
+  redis-cache:
+    security_opt: [no-new-privileges:true]
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 512M}
+        reservations: {memory: 128M}
+  redis-queue:
+    security_opt: [no-new-privileges:true]
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 1G}
+        reservations: {memory: 256M}
+  redis-socketio:
+    security_opt: [no-new-privileges:true]
+    deploy:
+      resources:
+        limits: {cpus: "0.5", memory: 256M}
+        reservations: {memory: 64M}
+  backend:
+    security_opt: [no-new-privileges:true]
+    init: true
+    stop_grace_period: 60s
+    tmpfs: [/tmp:size=256m,mode=1777]
+    deploy:
+      resources:
+        limits: {cpus: "2.0", memory: 2G}
+        reservations: {memory: 512M}
+  worker-short:
+    security_opt: [no-new-privileges:true]
+    init: true
+    stop_grace_period: 60s
+    tmpfs: [/tmp:size=256m,mode=1777]
+    deploy:
+      resources:
+        limits: {cpus: "2.0", memory: 2G}
+        reservations: {memory: 512M}
+  worker-long:
+    security_opt: [no-new-privileges:true]
+    init: true
+    stop_grace_period: 120s
+    tmpfs: [/tmp:size=512m,mode=1777]
+    deploy:
+      resources:
+        limits: {cpus: "4.0", memory: 4G}
+        reservations: {memory: 1G}
+  scheduler:
+    security_opt: [no-new-privileges:true]
+    init: true
+    stop_grace_period: 60s
+    tmpfs: [/tmp:size=128m,mode=1777]
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 1G}
+        reservations: {memory: 256M}
+  websocket:
+    security_opt: [no-new-privileges:true]
+    init: true
+    stop_grace_period: 30s
+    tmpfs: [/tmp:size=128m,mode=1777]
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 512M}
+        reservations: {memory: 128M}
+  proxy:
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:size=64m
+      - /var/run:size=16m
+      - /etc/nginx/conf.d:size=4m
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 256M}
+        reservations: {memory: 64M}

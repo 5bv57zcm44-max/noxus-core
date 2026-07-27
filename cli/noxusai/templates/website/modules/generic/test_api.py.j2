@@ -1,0 +1,14 @@
+import pytest
+
+from apps.[[ module ]].models import [[ class_name ]]
+
+
+@pytest.mark.django_db
+def test_public_api_only_returns_published(client):
+    title_key = "ar" if "[[ language ]]" == "arabic" else "en"
+    [[ class_name ]].all_objects.create(title={title_key: "Draft"}, slug="draft", status="draft")
+    [[ class_name ]].all_objects.create(title={title_key: "Public"}, slug="public", status="published")
+    response = client.get("/api/v1/[[ module ]]/records/")
+    assert response.status_code == 200
+    assert response.json()["count"] == 1
+    assert response.json()["results"][0]["resolved_title"] == "Public"

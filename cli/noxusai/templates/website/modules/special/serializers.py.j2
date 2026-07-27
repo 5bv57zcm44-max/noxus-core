@@ -1,0 +1,16 @@
+from rest_framework import serializers
+
+from .models import [[ class_name ]]
+
+
+class [[ class_name ]]Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = [[ class_name ]]
+        fields = "__all__"
+        read_only_fields = ("created_at", "updated_at", "created_by", "updated_by", "deleted_at", "deleted_by"{% if module == 'contact' %}, "spam_score"{% endif %})
+
+{% if module == 'media' %}    def validate_file(self, uploaded):
+        if uploaded.size > 10 * 1024 * 1024:
+            raise serializers.ValidationError("Files may not exceed 10 MiB")
+        return uploaded
+{% endif %}

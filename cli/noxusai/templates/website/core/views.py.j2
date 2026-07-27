@@ -1,0 +1,14 @@
+from django.db import connections
+from django.http import JsonResponse
+
+
+def live(request):
+    return JsonResponse({"status": "ok", "service": "[[ project_name ]]"})
+
+
+def ready(request):
+    try:
+        connections["default"].cursor().execute("SELECT 1")
+    except Exception:
+        return JsonResponse({"status": "unavailable", "database": "failed"}, status=503)
+    return JsonResponse({"status": "ready", "database": "ok"})

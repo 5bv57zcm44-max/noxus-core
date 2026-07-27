@@ -1,0 +1,13 @@
+from django.contrib.auth.models import Group, Permission
+from django.core.management.base import BaseCommand
+
+
+class Command(BaseCommand):
+    help = "Create idempotent NOXUS role groups"
+
+    def handle(self, *args, **options):
+        for name in ("Administrator", "Editor", "Author", "Support", "Analyst", "Viewer"):
+            group, _ = Group.objects.get_or_create(name=name)
+            if name == "Administrator":
+                group.permissions.set(Permission.objects.all())
+        self.stdout.write(self.style.SUCCESS("NOXUS roles are ready"))

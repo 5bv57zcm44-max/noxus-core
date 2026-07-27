@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+if [ -n "${DJANGO_SECRET_KEY_FILE:-}" ] && [ -r "$DJANGO_SECRET_KEY_FILE" ]; then
+  export DJANGO_SECRET_KEY="$(cat "$DJANGO_SECRET_KEY_FILE")"
+fi
+if [ -n "${POSTGRES_PASSWORD_FILE:-}" ] && [ -r "$POSTGRES_PASSWORD_FILE" ]; then
+  database_password="$(cat "$POSTGRES_PASSWORD_FILE")"
+  export DATABASE_URL="postgresql://${POSTGRES_USER:-noxus}:${database_password}@db:5432/${POSTGRES_DB:-noxus}"
+fi
+python manage.py migrate --noinput
+python manage.py collectstatic --noinput
+exec "$@"

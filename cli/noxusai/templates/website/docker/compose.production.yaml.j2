@@ -1,0 +1,19 @@
+services:
+  db:
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    deploy:
+      resources:
+        limits: {cpus: "2.0", memory: 2G}
+        reservations: {memory: 512M}
+  web:
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    init: true
+    stop_grace_period: 30s
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    deploy:
+      resources:
+        limits: {cpus: "2.0", memory: 1G}
+        reservations: {memory: 256M}

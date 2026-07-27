@@ -1,0 +1,201 @@
+from noxus_core.module_runtime import operational_schema
+
+ROLES = ["Transport Manager", "Dispatcher", "Driver", "Transport Viewer"]
+SCHEMAS = [
+    operational_schema(
+        "Noxus Transport",
+        "Transport Vehicle",
+        [
+            {
+                "fieldname": "registration_number",
+                "label": "Registration Number",
+                "fieldtype": "Data",
+                "reqd": 1,
+                "unique": 1,
+            },
+            {"fieldname": "make_model", "label": "Make and Model", "fieldtype": "Data"},
+            {"fieldname": "capacity", "label": "Capacity", "fieldtype": "Int"},
+            {
+                "fieldname": "status",
+                "label": "Status",
+                "fieldtype": "Select",
+                "options": "Available\nAssigned\nMaintenance\nRetired",
+                "default": "Available",
+            },
+            {
+                "fieldname": "maintenance_asset",
+                "label": "Maintenance Asset",
+                "fieldtype": "Data",
+                "description": "Optional link when NOXUS Maintenance is installed",
+            },
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Transport",
+        "Transport Driver",
+        [
+            {
+                "fieldname": "user",
+                "label": "User",
+                "fieldtype": "Link",
+                "options": "User",
+                "reqd": 1,
+            },
+            {
+                "fieldname": "license_number",
+                "label": "License Number",
+                "fieldtype": "Data",
+                "reqd": 1,
+                "unique": 1,
+            },
+            {"fieldname": "license_expires", "label": "License Expires", "fieldtype": "Date"},
+            {
+                "fieldname": "status",
+                "label": "Status",
+                "fieldtype": "Select",
+                "options": "Available\nAssigned\nSuspended",
+                "default": "Available",
+            },
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Transport",
+        "Transport Trip",
+        [
+            {
+                "fieldname": "vehicle",
+                "label": "Vehicle",
+                "fieldtype": "Link",
+                "options": "Transport Vehicle",
+                "reqd": 1,
+            },
+            {
+                "fieldname": "driver",
+                "label": "Driver",
+                "fieldtype": "Link",
+                "options": "Transport Driver",
+                "reqd": 1,
+            },
+            {"fieldname": "starts_at", "label": "Starts At", "fieldtype": "Datetime", "reqd": 1},
+            {"fieldname": "ends_at", "label": "Ends At", "fieldtype": "Datetime"},
+            {
+                "fieldname": "status",
+                "label": "Status",
+                "fieldtype": "Select",
+                "options": "Draft\nDispatched\nIn Progress\nComplete\nCancelled",
+                "default": "Draft",
+                "reqd": 1,
+            },
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Transport",
+        "Transport Stop",
+        [
+            {
+                "fieldname": "trip",
+                "label": "Trip",
+                "fieldtype": "Link",
+                "options": "Transport Trip",
+                "reqd": 1,
+            },
+            {"fieldname": "sequence", "label": "Sequence", "fieldtype": "Int", "reqd": 1},
+            {"fieldname": "label", "label": "Label", "fieldtype": "Data", "reqd": 1},
+            {"fieldname": "latitude", "label": "Latitude", "fieldtype": "Float"},
+            {"fieldname": "longitude", "label": "Longitude", "fieldtype": "Float"},
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Transport",
+        "Passenger Manifest",
+        [
+            {
+                "fieldname": "trip",
+                "label": "Trip",
+                "fieldtype": "Link",
+                "options": "Transport Trip",
+                "reqd": 1,
+            },
+            {
+                "fieldname": "passenger_name",
+                "label": "Passenger Name",
+                "fieldtype": "Data",
+                "reqd": 1,
+            },
+            {"fieldname": "contact", "label": "Contact", "fieldtype": "Data"},
+            {"fieldname": "boarded", "label": "Boarded", "fieldtype": "Check"},
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Transport",
+        "Vehicle Document",
+        [
+            {
+                "fieldname": "vehicle",
+                "label": "Vehicle",
+                "fieldtype": "Link",
+                "options": "Transport Vehicle",
+                "reqd": 1,
+            },
+            {
+                "fieldname": "document_type",
+                "label": "Document Type",
+                "fieldtype": "Data",
+                "reqd": 1,
+            },
+            {"fieldname": "expires_on", "label": "Expires On", "fieldtype": "Date"},
+            {"fieldname": "file", "label": "File", "fieldtype": "Attach", "reqd": 1},
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Transport",
+        "Driver Document",
+        [
+            {
+                "fieldname": "driver",
+                "label": "Driver",
+                "fieldtype": "Link",
+                "options": "Transport Driver",
+                "reqd": 1,
+            },
+            {
+                "fieldname": "document_type",
+                "label": "Document Type",
+                "fieldtype": "Data",
+                "reqd": 1,
+            },
+            {"fieldname": "expires_on", "label": "Expires On", "fieldtype": "Date"},
+            {"fieldname": "file", "label": "File", "fieldtype": "Attach", "reqd": 1},
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Transport",
+        "Transport Location Event",
+        [
+            {
+                "fieldname": "trip",
+                "label": "Trip",
+                "fieldtype": "Link",
+                "options": "Transport Trip",
+                "reqd": 1,
+            },
+            {
+                "fieldname": "recorded_at",
+                "label": "Recorded At",
+                "fieldtype": "Datetime",
+                "reqd": 1,
+            },
+            {"fieldname": "latitude", "label": "Latitude", "fieldtype": "Float", "reqd": 1},
+            {"fieldname": "longitude", "label": "Longitude", "fieldtype": "Float", "reqd": 1},
+            {"fieldname": "accuracy_meters", "label": "Accuracy Meters", "fieldtype": "Float"},
+        ],
+        ROLES,
+    ),
+]

@@ -1,0 +1,28 @@
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.viewsets import ModelViewSet
+
+from .models import [[ class_name ]]
+from .serializers import [[ class_name ]]Serializer
+
+
+class [[ class_name ]]ViewSet(ModelViewSet):
+    serializer_class = [[ class_name ]]Serializer
+    ordering_fields = ("created_at", "updated_at")
+{% if module in ['contact', 'newsletter', 'analytics'] %}    throttle_scope = "public-form"
+
+    def get_permissions(self):
+        return [AllowAny()] if self.action == "create" else [IsAdminUser()]
+{% else %}    permission_classes = [IsAuthenticatedOrReadOnly]
+{% endif %}
+    def get_queryset(self):
+        queryset = [[ class_name ]].objects.all()
+{% if module == 'media' %}        if not self.request.user.is_authenticated:
+            queryset = queryset.filter(visibility="public")
+{% endif %}        return queryset
+
+    def perform_create(self, serializer):
+        user = self.request.user if self.request.user.is_authenticated else None
+        serializer.save(created_by=user, updated_by=user)
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)

@@ -1,0 +1,5 @@
+def execute() -> None:
+    from noxus_core.install import ensure_roles, ensure_schemas
+
+    ensure_roles()
+    ensure_schemas()

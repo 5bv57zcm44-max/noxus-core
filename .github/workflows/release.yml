@@ -1,0 +1,65 @@
+name: Prepare release
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      authorize_pypi:
+        description: "Explicitly authorize protected PyPI publication"
+        type: boolean
+        required: true
+        default: false
+permissions: {contents: read, id-token: write, attestations: write}
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with: {python-version: "3.14"}
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with: {node-version: "24.18.0", cache: npm}
+      - run: python -m pip install -e ".[dev]"
+      - run: npm ci && npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: python infrastructure/scripts/build_release_manifest.py
+      - run: python infrastructure/scripts/verify_release.py --containers
+      - uses: anchore/sbom-action@a930d0ac434e3182448fe678398ba5713717112a # v0.21.0
+        with: {path: ., format: spdx-json, output-file: release-metadata/noxus-core.spdx.json}
+      - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
+        with: {subject-path: "dist/noxusai-*"}
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: python-distributions
+          path: |
+            dist/*.whl
+            dist/*.tar.gz
+          if-no-files-found: error
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: release-metadata
+          path: release-metadata/*
+          if-no-files-found: error
+  github-release:
+    needs: artifacts
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions: {contents: write}
+    steps:
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with: {name: python-distributions, path: dist}
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with: {name: release-metadata, path: release-metadata}
+      - name: Create immutable GitHub release
+        env: {GH_TOKEN: "${{ github.token }}"}
+        run: gh release create "$GITHUB_REF_NAME" dist/* release-metadata/* --verify-tag --generate-notes
+  publish:
+    needs: artifacts
+    if: github.event_name == 'workflow_dispatch' && inputs.authorize_pypi == true
+    runs-on: ubuntu-latest
+    environment: pypi-production
+    steps:
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with: {name: python-distributions, path: dist}
+      - uses: pypa/gh-action-pypi-publish@ba38be9e461d3875417946c167d0b5f3d385a247 # release/v1

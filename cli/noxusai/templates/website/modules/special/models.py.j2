@@ -1,0 +1,38 @@
+from django.core.validators import FileExtensionValidator
+from django.db import models
+
+from apps.core.models import AuditedModel, validate_translated_text
+
+
+class [[ class_name ]](AuditedModel):
+{% if module == 'contact' %}    name = models.CharField(max_length=200)
+    email = models.EmailField(db_index=True)
+    message = models.TextField(max_length=10_000)
+    status = models.CharField(max_length=20, choices=[("new", "New"), ("in_progress", "In progress"), ("closed", "Closed")], default="new", db_index=True)
+    spam_score = models.FloatField(default=0.0)
+{% elif module == 'newsletter' %}    email = models.EmailField(unique=True)
+    active = models.BooleanField(default=True)
+    consent_at = models.DateTimeField()
+    source = models.CharField(max_length=200, blank=True)
+{% elif module == 'analytics' %}    event_name = models.SlugField(max_length=100, db_index=True)
+    anonymous_id = models.CharField(max_length=128, db_index=True)
+    path = models.CharField(max_length=2048)
+    metadata = models.JSONField(default=dict, blank=True)
+{% elif module == 'media' %}    file = models.FileField(upload_to="media/%Y/%m/", validators=[FileExtensionValidator(["avif", "gif", "jpeg", "jpg", "pdf", "png", "svg", "webp"])])
+    alt_text = models.JSONField(validators=[validate_translated_text])
+    mime_type = models.CharField(max_length=100)
+    size = models.PositiveBigIntegerField()
+    visibility = models.CharField(max_length=20, choices=[("private", "Private"), ("public", "Public")], default="private", db_index=True)
+{% endif %}
+    class Meta:
+        ordering = ("-created_at",)
+{% if module == 'contact' %}        permissions = [("manage_contact", "Can manage contact messages")]
+{% elif module == 'newsletter' %}        permissions = [("export_subscribers", "Can export newsletter subscribers")]
+{% elif module == 'analytics' %}        permissions = [("view_dashboard", "Can view analytics dashboard")]
+{% elif module == 'media' %}        permissions = [("publish_media", "Can publish media")]
+{% endif %}
+    def __str__(self):
+{% if module in ['contact', 'newsletter'] %}        return self.email
+{% elif module == 'analytics' %}        return self.event_name
+{% else %}        return self.file.name
+{% endif %}

@@ -1,0 +1,15 @@
+import pytest
+from django.utils import timezone
+
+
+@pytest.mark.django_db
+def test_public_submission_and_private_listing(client):
+{% if module == 'contact' %}    payload = {"name": "Example", "email": "contact@example.test", "message": "Hello"}
+{% elif module == 'newsletter' %}    payload = {"email": "reader@example.test", "consent_at": timezone.now().isoformat()}
+{% elif module == 'analytics' %}    payload = {"event_name": "page-view", "anonymous_id": "anon-1", "path": "/"}
+{% else %}    response = client.get("/api/v1/media/records/")
+    assert response.status_code == 200
+    return
+{% endif %}    response = client.post("/api/v1/[[ module ]]/records/", payload, content_type="application/json")
+    assert response.status_code == 201
+    assert client.get("/api/v1/[[ module ]]/records/").status_code in {401, 403}

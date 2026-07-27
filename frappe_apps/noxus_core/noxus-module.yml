@@ -1,0 +1,15 @@
+schema_version: 1
+name: noxus_core
+display_name: NOXUS Core
+version: 1.0.0rc1
+description: Module registry, blueprints, permissions, audit, integrations, and deployment state
+publisher: NOXUS AI
+license: GPL-3.0-or-later
+category: core
+dependencies: {required: [], recommended: [], conflicts: []}
+platform: {python: ">=3.14,<3.15", frappe: ">=16.28,<17", erpnext: null}
+features: [registry, dependency_resolution, blueprints, roles, workflows, audit, health]
+roles: [System Manager, Noxus Administrator, Noxus Auditor]
+permissions: [noxus.read, noxus.configure, noxus.deploy, noxus.audit]
+workflows: [Blueprint Deployment]
+api: {namespace: /api/v2/method/noxus_core.api.v1}
