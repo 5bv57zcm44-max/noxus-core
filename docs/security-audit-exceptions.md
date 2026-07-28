@@ -6,6 +6,11 @@ package that publishes no patched version. Those findings remain visible in the 
 are reevaluated by the scheduled weekly scan; this policy never suppresses a finding with an
 available fix.
 
+Trivy's SARIF format intentionally reports every severity by default. CI therefore performs one
+nonblocking all-severity SARIF scan for the GitHub Security view and a separate table-format scan
+whose exit code blocks fixable HIGH/CRITICAL findings. The blocking decision never depends on
+SARIF's reporting behavior.
+
 The Frappe runtime remains on its digest-pinned Debian Bookworm base because
 [Debian Trixie does not publish `wkhtmltopdf`](https://packages.debian.org/search?keywords=wkhtmltopdf),
 which Frappe's supported PDF path requires. Distribution findings without vendor fixes follow the

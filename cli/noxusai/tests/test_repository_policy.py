@@ -242,7 +242,7 @@ def test_frappe_apps_declare_complete_release_metadata() -> None:
 
 
 def test_github_actions_are_pinned_to_immutable_commits() -> None:
-    action = re.compile(r"^\s*- uses: [^@\s]+@([0-9a-f]{40})(?:\s+#.*)?$")
+    action = re.compile(r"^\s*(?:-\s+)?uses: [^@\s]+@([0-9a-f]{40})(?:\s+#.*)?$")
     for workflow in (ROOT / ".github" / "workflows").glob("*.yml"):
         uses = [
             line for line in workflow.read_text(encoding="utf-8").splitlines() if "uses:" in line
@@ -250,3 +250,21 @@ def test_github_actions_are_pinned_to_immutable_commits() -> None:
         assert uses, f"workflow contains no actions: {workflow}"
         for line in uses:
             assert action.match(line), f"mutable action reference in {workflow}: {line}"
+
+
+def test_trivy_reporting_is_separate_from_release_blocking() -> None:
+    for name in ("containers.yml", "security.yml"):
+        workflow = yaml.safe_load(
+            (ROOT / ".github" / "workflows" / name).read_text(encoding="utf-8")
+        )
+        steps = next(iter(workflow["jobs"].values()))["steps"]
+        scans = [step for step in steps if str(step.get("uses", "")).startswith("aquasecurity/")]
+        assert len(scans) == 2
+
+        report, gate = scans
+        assert report["with"]["format"] == "sarif"
+        assert report["with"]["exit-code"] == "0"
+        assert gate["with"]["format"] == "table"
+        assert gate["with"]["severity"] == "CRITICAL,HIGH"
+        assert gate["with"]["exit-code"] == "1"
+        assert gate["with"]["skip-setup-trivy"] is True

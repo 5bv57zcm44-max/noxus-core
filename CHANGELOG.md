@@ -45,4 +45,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
   digest-pinned Debian Bookworm runtime because it supplies Frappe's required `wkhtmltopdf` package.
 - Remove package managers, ERPNext frontend dependencies, and package-manager caches from the final
   runtime image, and fail image scans on every fixable HIGH/CRITICAL finding.
+- Separate complete Trivy SARIF reporting from the blocking HIGH/CRITICAL gate so SARIF's documented
+  all-severity behavior cannot turn an informational finding into an incorrect release failure.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.
