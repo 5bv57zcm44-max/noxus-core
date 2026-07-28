@@ -55,7 +55,7 @@ def apply_blueprint(request: str | dict[str, Any]) -> dict[str, str]:
     return queue_application(value)
 
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True)
 def health() -> dict[str, Any]:
     if frappe.session.user == "Guest":
         return {"status": "healthy"}

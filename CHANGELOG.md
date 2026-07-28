@@ -31,4 +31,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
   custom DocType Link against dependency-aware Frappe installation order.
 - Route backend health probes to the configured Frappe site and preserve comma-separated worker
   queue lists as single command arguments.
+- Explicitly allow unauthenticated access to the intentionally minimal public health method while
+  keeping detailed authenticated health data protected.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.

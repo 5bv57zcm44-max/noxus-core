@@ -142,6 +142,13 @@ def test_frappe_runtime_commands_preserve_queue_lists_and_site_routing() -> None
     assert health[-1] == "http://localhost:8000/api/method/ping"
 
 
+def test_frappe_public_health_method_explicitly_allows_guests() -> None:
+    api = (ROOT / "frappe_apps" / "noxus_core" / "noxus_core" / "api" / "v1.py").read_text(
+        encoding="utf-8"
+    )
+    assert "@frappe.whitelist(allow_guest=True)\ndef health()" in api
+
+
 def test_frappe_apps_provide_their_declared_module_packages() -> None:
     for app in (ROOT / "frappe_apps").glob("noxus_*"):
         package = app / app.name

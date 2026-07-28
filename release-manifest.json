@@ -207,8 +207,8 @@
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/api/v1.py",
-      "sha256": "1b195b5dd063ae9b33cc33abef6e4f79e6ea93e9cf57f3b7771fd3775eaeeac1",
-      "size": 3433
+      "sha256": "2866b49c545e2c06de59170d33ba9fed64221ffc4a1550a9591528ff739b2d13",
+      "size": 3449
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/contracts.py",
