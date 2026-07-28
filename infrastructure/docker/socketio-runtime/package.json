@@ -1,0 +1,13 @@
+{
+  "name": "@noxus/frappe-socketio-runtime",
+  "version": "1.0.0-rc.1",
+  "private": true,
+  "engines": {
+    "node": "24.18.0"
+  },
+  "dependencies": {
+    "@redis/client": "1.6.1",
+    "cookie": "0.7.2",
+    "socket.io": "4.8.3"
+  }
+}

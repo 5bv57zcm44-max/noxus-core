@@ -9,6 +9,7 @@ ARG WITH_ERPNEXT=0
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     FRAPPE_BENCH_ROOT=/home/frappe/frappe-bench \
+    NODE_PATH=/opt/noxus/socketio-runtime/node_modules \
     PATH=/home/frappe/.local/bin:/home/frappe/frappe-bench/env/bin:$PATH
 
 COPY --from=node /usr/local/ /usr/local/
@@ -31,6 +32,7 @@ RUN git clone --filter=blob:none https://github.com/frappe/frappe.git /tmp/frapp
 
 COPY --chown=frappe:frappe frappe_apps /opt/noxus/apps
 COPY --chown=frappe:frappe infrastructure/scripts /opt/noxus/scripts
+COPY --chown=frappe:frappe infrastructure/docker/socketio-runtime /opt/noxus/socketio-runtime
 WORKDIR /home/frappe/frappe-bench
 RUN set -eu; \
     printf 'frappe\n' > sites/apps.txt; \
@@ -50,7 +52,28 @@ RUN set -eu; \
          && printf 'erpnext\n' >> sites/apps.txt \
          && rm -rf /tmp/erpnext; \
        fi \
-    && bench build --production
+    && ./env/bin/python -m pip install --no-cache-dir \
+         cryptography==48.0.1 \
+         Pillow==12.3.0 \
+         pypdf==6.14.2 \
+    && bench build --production \
+    && npm ci --prefix /opt/noxus/socketio-runtime --omit=dev --ignore-scripts --no-audit --no-fund \
+    && rm -rf \
+         apps/frappe/node_modules \
+         apps/erpnext/node_modules \
+         apps/erpnext/banking/node_modules \
+         /home/frappe/.cache/pip \
+         /home/frappe/.cache/yarn
+
+USER root
+RUN rm -rf \
+         /usr/local/bin/npm \
+         /usr/local/bin/npx \
+         /usr/local/bin/yarn \
+         /usr/local/bin/yarnpkg \
+         /usr/local/lib/node_modules/npm \
+         /usr/local/lib/node_modules/yarn
+USER frappe
 
 EXPOSE 8000 9000
 CMD ["bench", "serve", "--port", "8000"]

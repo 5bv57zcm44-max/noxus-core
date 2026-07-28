@@ -40,4 +40,9 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
   archive, reject corrupt gzip input, and always remove the temporary staging file.
 - Read protected restore inputs as root, copy the mounted archive into a private `frappe`-owned
   staging directory, and drop privileges before Frappe creates site locks or changes database state.
+- Apply documented patched Python security overrides and replace Frappe's complete build-time Node
+  tree with an exact, audited Socket.IO runtime after immutable assets are compiled. Keep the
+  digest-pinned Debian Bookworm runtime because it supplies Frappe's required `wkhtmltopdf` package.
+- Remove package managers, ERPNext frontend dependencies, and package-manager caches from the final
+  runtime image, and fail image scans on every fixable HIGH/CRITICAL finding.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.

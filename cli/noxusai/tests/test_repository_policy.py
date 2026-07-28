@@ -144,6 +144,34 @@ def test_frappe_restore_drops_secret_reader_privileges() -> None:
     assert '"/opt/noxus/scripts/restore-site-entrypoint.sh"' in lifecycle
 
 
+def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> None:
+    dockerfile = (ROOT / "infrastructure" / "docker" / "images" / "backend.Dockerfile").read_text(
+        encoding="utf-8"
+    )
+    build_cleanup = dockerfile.split("bench build --production", maxsplit=1)[1]
+    assert "NODE_PATH=/opt/noxus/socketio-runtime/node_modules" in dockerfile
+    assert "cryptography==48.0.1" in dockerfile
+    assert "Pillow==12.3.0" in dockerfile
+    assert "pypdf==6.14.2" in dockerfile
+    assert "npm ci --prefix /opt/noxus/socketio-runtime" in build_cleanup
+    assert "apps/frappe/node_modules" in build_cleanup
+    assert "apps/erpnext/banking/node_modules" in build_cleanup
+    assert "/usr/local/lib/node_modules/npm" in build_cleanup
+    assert "/home/frappe/.cache/pip" in build_cleanup
+    assert "/home/frappe/.cache/yarn" in build_cleanup
+    assert "USER root" in build_cleanup
+    assert build_cleanup.rfind("USER frappe") < build_cleanup.rfind("EXPOSE 8000 9000")
+
+    lock = json.loads(
+        (ROOT / "infrastructure" / "docker" / "socketio-runtime" / "package-lock.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert lock["packages"]["node_modules/socket.io-parser"]["version"] == "4.2.7"
+    assert lock["packages"]["node_modules/engine.io"]["version"] == "6.6.9"
+    assert lock["packages"]["node_modules/ws"]["version"] == "8.21.1"
+
+
 def test_frappe_runtime_commands_preserve_queue_lists_and_site_routing() -> None:
     compose = yaml.safe_load(
         (ROOT / "infrastructure" / "docker" / "compose.yaml").read_text(encoding="utf-8")

@@ -57,8 +57,8 @@
     },
     {
       "path": "docs/security-audit-exceptions.md",
-      "sha256": "287ec336f068da1cfd041b9ecf9b78506207b2011e9ba01d049b5e065b643d2e",
-      "size": 396
+      "sha256": "42f1292de13dc11027767822663dfe1732bf81b41772f483e946e5bf66db6498",
+      "size": 2145
     },
     {
       "path": "docs/testing.md",
@@ -752,13 +752,23 @@
     },
     {
       "path": "infrastructure/docker/images/backend.Dockerfile",
-      "sha256": "923c84b532085d96327955156bd7d73f016a9471ccae345326a9ccf51dbd99ea",
-      "size": 2630
+      "sha256": "63ca41d518e7974faf298883a9fc903cf917a8436159b0d7ebe603e144e898ac",
+      "size": 3473
     },
     {
       "path": "infrastructure/docker/images/proxy.Dockerfile",
       "sha256": "9f1d32a53bd31f3d9b09c0b637d5c2c5124559db652e070371dfd75bfb0fc7f6",
       "size": 246
+    },
+    {
+      "path": "infrastructure/docker/socketio-runtime/package-lock.json",
+      "sha256": "89db26a26215ea02c9f6c15f3e32787d54466b95f0bb39181389ad8f78ec72d1",
+      "size": 10777
+    },
+    {
+      "path": "infrastructure/docker/socketio-runtime/package.json",
+      "sha256": "9125bcfde28a9e4141631b451bc2ce4944d24dcc7d771232cfab1fa5269be711",
+      "size": 238
     },
     {
       "path": "infrastructure/monitoring/prometheus.yml",
