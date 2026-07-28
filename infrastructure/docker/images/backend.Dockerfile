@@ -45,6 +45,7 @@ RUN set -eu; \
          && rm -rf /tmp/erpnext/.git \
          && cp -a /tmp/erpnext apps/erpnext \
          && ./env/bin/python -m pip install --no-cache-dir --editable apps/erpnext \
+         && yarn --cwd apps/erpnext install --frozen-lockfile --non-interactive \
          && printf 'erpnext\n' >> sites/apps.txt \
          && rm -rf /tmp/erpnext; \
        fi \

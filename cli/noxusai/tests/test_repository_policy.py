@@ -70,7 +70,19 @@ def test_runtime_image_installs_only_declared_local_apps() -> None:
     assert "/opt/noxus/apps/noxus_*" in dockerfile
     assert "printf 'frappe\\n' > sites/apps.txt" in dockerfile
     assert 'pip install --no-cache-dir --editable "apps/$app_name"' in dockerfile
+    assert "yarn --cwd apps/erpnext install --frozen-lockfile --non-interactive" in dockerfile
     assert 'bench get-app "$app"' not in dockerfile
+
+
+def test_container_acceptance_captures_partial_start_failures() -> None:
+    acceptance = (ROOT / "infrastructure" / "scripts" / "docker_acceptance.py").read_text(
+        encoding="utf-8"
+    )
+    marked = acceptance.index("compose_started = True")
+    startup = acceptance.index('compose(project, ["up", "--build", "--detach"])')
+    assert marked < startup
+    assert 'compose(project, ["logs", "--no-color", "--tail", "500"], check=False)' in acceptance
+    assert 'compose(project, ["down", "--volumes", "--remove-orphans"], check=False)' in acceptance
 
 
 def test_github_actions_are_pinned_to_immutable_commits() -> None:

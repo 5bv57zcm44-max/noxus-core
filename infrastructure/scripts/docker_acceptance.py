@@ -116,7 +116,7 @@ def main() -> None:
         "--with-erpnext" if args.with_erpnext else "--without-erpnext",
     ]
 
-    started = False
+    compose_started = False
     try:
         run(generate, cwd=ROOT)
         compose(project, ["config", "--quiet"])
@@ -136,8 +136,8 @@ def main() -> None:
             cwd=project,
             environment={"NOXUS_DEPLOYMENT_PROFILE": "production"},
         )
+        compose_started = True
         compose(project, ["up", "--build", "--detach"])
-        started = True
         wait_for_health("http://127.0.0.1:8080/healthz", timeout=600)
         site = f"{project_name}.localhost"
         wait_for_health(
@@ -212,12 +212,12 @@ def main() -> None:
         compose(project, ["restart", "backend", "worker-short", "worker-long", "scheduler"])
         wait_for_health("http://127.0.0.1:8080/healthz", timeout=300)
     except Exception:
-        if started:
+        if compose_started:
             logs = compose(project, ["logs", "--no-color", "--tail", "500"], check=False)
             sys.stderr.write(logs.stdout + logs.stderr)
         raise
     finally:
-        if started:
+        if compose_started:
             compose(project, ["down", "--volumes", "--remove-orphans"], check=False)
         if args.keep:
             print(f"Acceptance workspace retained at {workspace}")

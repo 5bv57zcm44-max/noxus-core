@@ -19,4 +19,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Read protected Compose secret files before dropping the generated website container to `django`.
 - Route generated website container test commands through the secret-loading entrypoint.
 - Install bundled Frappe apps and pinned ERPNext source directly instead of parsing local paths as remotes.
+- Install ERPNext's exact Yarn lock before building its pinned frontend assets.
 - Give every backup a collision-resistant UTC/UUID directory before restore preflight.
+- Capture Frappe service logs and remove volumes when Compose fails during partial startup.
