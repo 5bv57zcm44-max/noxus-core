@@ -111,6 +111,18 @@ def test_frappe_site_creator_uses_the_bench_sites_directory() -> None:
     assert "frappe.init(site, new_site=True)" in creator
 
 
+def test_frappe_apps_provide_their_declared_module_packages() -> None:
+    for app in (ROOT / "frappe_apps").glob("noxus_*"):
+        package = app / app.name
+        declared_modules = (package / "modules.txt").read_text(encoding="utf-8").splitlines()
+        assert declared_modules, f"{app.name} declares no Frappe modules"
+        for module_name in declared_modules:
+            module_package = re.sub(r"[^a-z0-9]+", "_", module_name.lower()).strip("_")
+            assert (package / module_package / "__init__.py").is_file(), (
+                f"{app.name} is missing its declared module package {module_package}"
+            )
+
+
 def test_github_actions_are_pinned_to_immutable_commits() -> None:
     action = re.compile(r"^\s*- uses: [^@\s]+@([0-9a-f]{40})(?:\s+#.*)?$")
     for workflow in (ROOT / ".github" / "workflows").glob("*.yml"):

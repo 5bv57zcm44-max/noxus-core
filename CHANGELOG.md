@@ -24,3 +24,4 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Capture Frappe service logs and remove volumes when Compose fails during partial startup.
 - Load protected Frappe site secrets as root, then immediately drop to the `frappe` user.
 - Run Frappe site creation from the Bench `sites` directory so app discovery and logging resolve correctly.
+- Provide the standard nested Frappe module package declared by every NOXUS app.

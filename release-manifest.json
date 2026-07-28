@@ -161,6 +161,11 @@
       "size": 9
     },
     {
+      "path": "frappe_apps/noxus_ai/noxus_ai/noxus_ai/__init__.py",
+      "sha256": "76c39ec5665424fa6fb59ac57c8f0d3194e6a511c51a49542d971bbe527cd1a6",
+      "size": 42
+    },
+    {
       "path": "frappe_apps/noxus_ai/noxus_ai/schema.py",
       "sha256": "3c30698761b38d655812c4eaf40a3828be9dac4a52de5c2c6fb971f052c20921",
       "size": 1237
@@ -229,6 +234,11 @@
       "path": "frappe_apps/noxus_core/noxus_core/modules.txt",
       "sha256": "d01b522808caeff8f28bb81ded9fe4cc08d1e4ffac990395b4bc3e6095cf6c53",
       "size": 11
+    },
+    {
+      "path": "frappe_apps/noxus_core/noxus_core/noxus_core/__init__.py",
+      "sha256": "62a3dc0976b3d09553f97d98691cab7058a654e937c61d804a72e64544f41ee5",
+      "size": 44
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/patches.txt",
@@ -396,6 +406,11 @@
       "size": 10
     },
     {
+      "path": "frappe_apps/noxus_crm/noxus_crm/noxus_crm/__init__.py",
+      "sha256": "43835155cb009441ea14fd0dc489b0b3c7a071de6fa222fda80f896e7326a75e",
+      "size": 43
+    },
+    {
       "path": "frappe_apps/noxus_crm/noxus_crm/schema.py",
       "sha256": "e68782dcb8ef45d271b2bab03ef574413332867d6561dae572ec0a6965284b3a",
       "size": 1491
@@ -439,6 +454,11 @@
       "path": "frappe_apps/noxus_education/noxus_education/modules.txt",
       "sha256": "46a06695d02c2316875fe0ffc42c6c1bd7b7c28fed805d79539e296273aef83c",
       "size": 16
+    },
+    {
+      "path": "frappe_apps/noxus_education/noxus_education/noxus_education/__init__.py",
+      "sha256": "5fcfa171ebf63b150469e163b8908fe3b854a5af65d6c38c1f8bc36ed2fbc861",
+      "size": 49
     },
     {
       "path": "frappe_apps/noxus_education/noxus_education/schema.py",
@@ -486,6 +506,11 @@
       "size": 16
     },
     {
+      "path": "frappe_apps/noxus_inventory/noxus_inventory/noxus_inventory/__init__.py",
+      "sha256": "5c85ed143a59a55d7a28aead6fa00b888935daaf36a82ff874d0dc4c92105d54",
+      "size": 49
+    },
+    {
       "path": "frappe_apps/noxus_inventory/noxus_inventory/schema.py",
       "sha256": "ca0a5bc0bf251c741199b773499ff68704cfd6ae67f955227edd4c1e4c8ca3a5",
       "size": 2546
@@ -529,6 +554,11 @@
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/modules.txt",
       "sha256": "723641ea85135977cac8ca5626884b7a45f23894045cf01041b47f4bcb8e4db6",
       "size": 18
+    },
+    {
+      "path": "frappe_apps/noxus_maintenance/noxus_maintenance/noxus_maintenance/__init__.py",
+      "sha256": "38509faadb1d2ef80250be7981345e981346235abe6e19e857db8904ed6088d6",
+      "size": 51
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/schema.py",
@@ -576,6 +606,11 @@
       "size": 15
     },
     {
+      "path": "frappe_apps/noxus_projects/noxus_projects/noxus_projects/__init__.py",
+      "sha256": "c7f50af00dee3f8eeacee96ec0193738608b70486e2c4e37b7619f26ebb7868e",
+      "size": 48
+    },
+    {
       "path": "frappe_apps/noxus_projects/noxus_projects/schema.py",
       "sha256": "0a6efaaee42d740ee1dd5f8fed002dd89bee9656a4252c8b80f0dfe11754eefe",
       "size": 1641
@@ -621,6 +656,11 @@
       "size": 14
     },
     {
+      "path": "frappe_apps/noxus_support/noxus_support/noxus_support/__init__.py",
+      "sha256": "2712bfd155f6e06221c4d56ccbfa9f6ed635462331742ca8e889d9590a52ee93",
+      "size": 47
+    },
+    {
       "path": "frappe_apps/noxus_support/noxus_support/schema.py",
       "sha256": "caaadb6a6782dddfda56c4bc584424f16e6db6a2ae868ab76036baf482013954",
       "size": 1412
@@ -664,6 +704,11 @@
       "path": "frappe_apps/noxus_transport/noxus_transport/modules.txt",
       "sha256": "ca8165001aae3fa9308cf03283f0391379010f0ef7e1bdeaa55228a1cac43513",
       "size": 16
+    },
+    {
+      "path": "frappe_apps/noxus_transport/noxus_transport/noxus_transport/__init__.py",
+      "sha256": "c45d3894d271031e737b790ae5983aa370158f3f110c73ae2b0489307d862312",
+      "size": 49
     },
     {
       "path": "frappe_apps/noxus_transport/noxus_transport/schema.py",
