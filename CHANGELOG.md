@@ -8,6 +8,8 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 
 - Initial production implementation for the `1.0.0rc1` release candidate.
 - Separate non-container and full release-check targets for environments where Docker is unavailable.
+- Publish `1.0.0rc1` to PyPI through Trusted Publishing with wheel/source attestations after the
+  complete GitHub-hosted release gate, and publish the matching GitHub prerelease with its SPDX SBOM.
 
 ### Fixed
 

@@ -52,13 +52,13 @@
     },
     {
       "path": "docs/release-notes-1.0.0rc1.md",
-      "sha256": "c45cf63844a09aa5df3d8492f4ec4465a3692ae1e588238b2e3d017b343cf731",
-      "size": 1421
+      "sha256": "20f73d26c252a6c1e8877d8657f59cd1d1ee06d1b1fe5edd1da4e6d408f95f51",
+      "size": 1734
     },
     {
       "path": "docs/releasing.md",
-      "sha256": "a46dd00522f148779cb4734ca372038918ec7c3947f8240c0097e7da6a21e00d",
-      "size": 3024
+      "sha256": "ca182d926d7feb2c67331336ee2b3b394882f28804d41209cce8a460baab924c",
+      "size": 3037
     },
     {
       "path": "docs/security-audit-exceptions.md",

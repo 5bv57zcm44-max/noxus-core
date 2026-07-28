@@ -4,10 +4,10 @@ Only maintainers may publish NOXUS CORE. A release is built on GitHub-hosted Lin
 upload a workstation build, bypass a failed gate, reuse a version, or paste a PyPI password or API
 token into a command, issue, log, or repository secret.
 
-## One-time PyPI trusted publisher setup
+## One-time PyPI trusted publisher setup (completed for `noxusai`)
 
-PyPI does not charge for publishing a public package. For the first `noxusai` release, sign in to
-PyPI and create a **Pending Trusted Publisher** with these exact values:
+PyPI does not charge for publishing a public package. The first `noxusai` release used a
+**Pending Trusted Publisher** with these exact values:
 
 | Field | Value |
 | --- | --- |
@@ -17,10 +17,10 @@ PyPI and create a **Pending Trusted Publisher** with these exact values:
 | Workflow | `release.yml` |
 | Environment | `pypi-production` |
 
-The GitHub environment exists and permits deployment only from `main`. The pending publisher does
-not reserve the project name; confirm `https://pypi.org/pypi/noxusai/json` still returns 404
-immediately before the first authorized publication. PyPI converts the pending publisher to a
-normal project publisher after the first successful upload.
+The GitHub environment permits deployment only from `main`. PyPI converted the pending publisher to
+a normal project publisher when `1.0.0rc1` was uploaded successfully on 2026-07-28. Future releases
+must preserve the same repository/workflow/environment identity and use the protected workflow;
+never create or store a long-lived PyPI token as a workaround.
 
 ## Release procedure
 
