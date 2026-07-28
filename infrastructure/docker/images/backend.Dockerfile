@@ -8,6 +8,7 @@ ARG WITH_ERPNEXT=0
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
+    FRAPPE_BENCH_ROOT=/home/frappe/frappe-bench \
     PATH=/home/frappe/.local/bin:/home/frappe/frappe-bench/env/bin:$PATH
 
 COPY --from=node /usr/local/ /usr/local/
