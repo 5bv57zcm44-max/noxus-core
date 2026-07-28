@@ -35,4 +35,5 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
   keeping detailed authenticated health data protected.
 - Initialize Frappe restore operations from the Bench `sites` directory so existing site
   configuration resolves before the guarded database restore.
+- Install the system file-type detector required by Frappe's compressed backup restore preflight.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.

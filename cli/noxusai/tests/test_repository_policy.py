@@ -77,6 +77,16 @@ def test_runtime_image_installs_only_declared_local_apps() -> None:
     assert 'bench get-app "$app"' not in dockerfile
 
 
+def test_runtime_image_includes_frappe_restore_file_detector() -> None:
+    dockerfile = (ROOT / "infrastructure" / "docker" / "images" / "backend.Dockerfile").read_text(
+        encoding="utf-8"
+    )
+    install_block = dockerfile.split("apt-get install", maxsplit=1)[1].split(
+        "&& rm -rf /var/lib/apt/lists/*", maxsplit=1
+    )[0]
+    assert "file" in install_block.split()
+
+
 def test_container_acceptance_captures_partial_start_failures() -> None:
     acceptance = (ROOT / "infrastructure" / "scripts" / "docker_acceptance.py").read_text(
         encoding="utf-8"

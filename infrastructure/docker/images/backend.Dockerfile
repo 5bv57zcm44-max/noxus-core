@@ -13,7 +13,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 COPY --from=node /usr/local/ /usr/local/
 RUN apt-get update && apt-get install --yes --no-install-recommends \
-      build-essential cron curl git gosu jq libffi-dev libjpeg62-turbo-dev libmariadb-dev libpq-dev \
+      build-essential cron curl file git gosu jq libffi-dev libjpeg62-turbo-dev libmariadb-dev libpq-dev \
       libssl-dev mariadb-client pkg-config redis-tools wkhtmltopdf xvfb \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg \
