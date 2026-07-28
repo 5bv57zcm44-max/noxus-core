@@ -2,12 +2,15 @@ FROM python:3.14.6-slim-bookworm@sha256:86f975aca15cf04a40b399eebede9aea7c82eae0
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
-RUN addgroup --system django && adduser --system --ingroup django django
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends gosu \
+    && rm -rf /var/lib/apt/lists/* \
+    && addgroup --system django \
+    && adduser --system --ingroup django django
 COPY requirements.txt ./
 RUN pip install --no-cache-dir --requirement requirements.txt
 COPY . .
 RUN chmod +x docker/entrypoint.sh && chown -R django:django /app
-USER django
 EXPOSE 8000
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--access-logfile", "-"]

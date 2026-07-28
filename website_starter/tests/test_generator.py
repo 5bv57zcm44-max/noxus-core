@@ -28,6 +28,15 @@ def test_generate_full_website_is_safe_and_complete(tmp_path: Path) -> None:
     assert result["created"] is True
     assert (target / "Dockerfile").is_file()
     assert (target / "compose.production.yaml").is_file()
+    assert "apt-get install --yes --no-install-recommends gosu" in (
+        target / "Dockerfile"
+    ).read_text(encoding="utf-8")
+    assert 'exec gosu django "$@"' in (target / "docker" / "entrypoint.sh").read_text(
+        encoding="utf-8"
+    )
+    assert "postgres_data:/var/lib/postgresql" in (target / "compose.yaml").read_text(
+        encoding="utf-8"
+    )
     assert (target / "secrets" / "postgres_password.txt").stat().st_size >= 32
     assert (target / "secrets" / "django_secret.txt").stat().st_size >= 64
     assert (target / "apps" / "contact" / "models.py").is_file()

@@ -1,6 +1,14 @@
 #!/bin/sh
 set -eu
 
+run_as_django() {
+  if [ "$(id -u)" -eq 0 ]; then
+    gosu django "$@"
+  else
+    "$@"
+  fi
+}
+
 if [ -n "${DJANGO_SECRET_KEY_FILE:-}" ] && [ -r "$DJANGO_SECRET_KEY_FILE" ]; then
   export DJANGO_SECRET_KEY="$(cat "$DJANGO_SECRET_KEY_FILE")"
 fi
@@ -8,6 +16,9 @@ if [ -n "${POSTGRES_PASSWORD_FILE:-}" ] && [ -r "$POSTGRES_PASSWORD_FILE" ]; the
   database_password="$(cat "$POSTGRES_PASSWORD_FILE")"
   export DATABASE_URL="postgresql://${POSTGRES_USER:-noxus}:${database_password}@db:5432/${POSTGRES_DB:-noxus}"
 fi
-python manage.py migrate --noinput
-python manage.py collectstatic --noinput
+run_as_django python manage.py migrate --noinput
+run_as_django python manage.py collectstatic --noinput
+if [ "$(id -u)" -eq 0 ]; then
+  exec gosu django "$@"
+fi
 exec "$@"

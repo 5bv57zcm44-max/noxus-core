@@ -16,3 +16,4 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Install the generated Django project's exact test dependencies in clean development environments.
 - Mount PostgreSQL 18 data at its supported parent directory and preserve failure logs and cleanup.
 - Install pinned Yarn in the Frappe image and correct the pinned Trivy security workflow inputs.
+- Read protected Compose secret files before dropping the generated website container to `django`.
