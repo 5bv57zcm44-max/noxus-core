@@ -31,12 +31,21 @@ RUN git clone --filter=blob:none https://github.com/frappe/frappe.git /tmp/frapp
 COPY --chown=frappe:frappe frappe_apps /opt/noxus/apps
 COPY --chown=frappe:frappe infrastructure/scripts /opt/noxus/scripts
 WORKDIR /home/frappe/frappe-bench
-RUN for app in /opt/noxus/apps/*; do bench get-app "$app"; done \
+RUN set -eu; \
+    for app_source in /opt/noxus/apps/noxus_*; do \
+      app_name="$(basename "$app_source")"; \
+      cp -a "$app_source" "apps/$app_name"; \
+      ./env/bin/python -m pip install --no-cache-dir --editable "apps/$app_name"; \
+      printf '%s\n' "$app_name" >> sites/apps.txt; \
+    done \
     && if [ "$WITH_ERPNEXT" = "1" ]; then \
          git clone --filter=blob:none https://github.com/frappe/erpnext.git /tmp/erpnext \
          && git -C /tmp/erpnext checkout "$ERPNEXT_COMMIT" \
-         && bench get-app /tmp/erpnext \
-         && rm -rf /tmp/erpnext/.git; \
+         && rm -rf /tmp/erpnext/.git \
+         && cp -a /tmp/erpnext apps/erpnext \
+         && ./env/bin/python -m pip install --no-cache-dir --editable apps/erpnext \
+         && printf 'erpnext\n' >> sites/apps.txt \
+         && rm -rf /tmp/erpnext; \
        fi \
     && bench build --production
 

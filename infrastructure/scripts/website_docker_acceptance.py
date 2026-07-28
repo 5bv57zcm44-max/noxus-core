@@ -110,7 +110,21 @@ def main() -> None:
         compose(project, ["up", "--build", "--detach"])
         wait_for("http://127.0.0.1:8000/health/ready", timeout=600)
         wait_for("http://127.0.0.1:8000/api/schema/", timeout=120)
-        compose(project, ["exec", "-T", "web", "python", "-m", "pytest", "-q"])
+        compose(
+            project,
+            [
+                "exec",
+                "-T",
+                "-e",
+                "DJANGO_SETTINGS_MODULE=config.settings.test",
+                "web",
+                "/app/docker/entrypoint.sh",
+                "python",
+                "-m",
+                "pytest",
+                "-q",
+            ],
+        )
 
         run([sys.executable, "-m", "noxusai.main", "backup"], cwd=project)
         backups = sorted(

@@ -63,6 +63,15 @@ def test_original_packages_declare_gpl() -> None:
         assert 'license = "GPL-3.0-or-later"' in pyproject.read_text(encoding="utf-8")
 
 
+def test_runtime_image_installs_only_declared_local_apps() -> None:
+    dockerfile = (ROOT / "infrastructure" / "docker" / "images" / "backend.Dockerfile").read_text(
+        encoding="utf-8"
+    )
+    assert "/opt/noxus/apps/noxus_*" in dockerfile
+    assert 'pip install --no-cache-dir --editable "apps/$app_name"' in dockerfile
+    assert 'bench get-app "$app"' not in dockerfile
+
+
 def test_github_actions_are_pinned_to_immutable_commits() -> None:
     action = re.compile(r"^\s*- uses: [^@\s]+@([0-9a-f]{40})(?:\s+#.*)?$")
     for workflow in (ROOT / ".github" / "workflows").glob("*.yml"):

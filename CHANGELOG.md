@@ -17,3 +17,5 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Mount PostgreSQL 18 data at its supported parent directory and preserve failure logs and cleanup.
 - Install pinned Yarn in the Frappe image and correct the pinned Trivy security workflow inputs.
 - Read protected Compose secret files before dropping the generated website container to `django`.
+- Route generated website container test commands through the secret-loading entrypoint.
+- Install bundled Frappe apps and pinned ERPNext source directly instead of parsing local paths as remotes.
