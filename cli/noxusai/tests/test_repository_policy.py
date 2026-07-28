@@ -1,3 +1,4 @@
+import ast
 import hashlib
 import json
 import re
@@ -121,6 +122,28 @@ def test_frappe_apps_provide_their_declared_module_packages() -> None:
             assert (package / module_package / "__init__.py").is_file(), (
                 f"{app.name} is missing its declared module package {module_package}"
             )
+
+
+def test_frappe_apps_declare_complete_release_metadata() -> None:
+    expected = {
+        "app_name",
+        "app_title",
+        "app_publisher",
+        "app_description",
+        "app_email",
+        "app_license",
+        "app_version",
+    }
+    for hooks in (ROOT / "frappe_apps").glob("noxus_*/noxus_*/hooks.py"):
+        tree = ast.parse(hooks.read_text(encoding="utf-8"))
+        declared = {
+            target.id
+            for node in tree.body
+            if isinstance(node, ast.Assign)
+            for target in node.targets
+            if isinstance(target, ast.Name)
+        }
+        assert expected <= declared, f"{hooks} is missing metadata: {sorted(expected - declared)}"
 
 
 def test_github_actions_are_pinned_to_immutable_commits() -> None:

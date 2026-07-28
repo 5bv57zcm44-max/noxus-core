@@ -1,7 +1,10 @@
 app_name = "noxus_ai"
 app_title = "NOXUS AI"
 app_publisher = "NOXUS AI"
+app_description = "Provider-neutral AI integration with disabled-by-default providers"
+app_email = "security@noxus.example"
 app_license = "GPL-3.0-or-later"
+app_version = "1.0.0rc1"
 after_install = "noxus_ai.install.after_install"
 required_apps = ["noxus_core"]
 doc_events = {"AI Provider Configuration": {"validate": "noxus_ai.service.validate_provider"}}

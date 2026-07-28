@@ -1,4 +1,4 @@
-from noxus_core.schema import CORE_SCHEMAS
+from noxus_core.schema import CORE_SCHEMAS as _CORE_SCHEMAS
 
 app_name = "noxus_core"
 app_title = "NOXUS Core"
@@ -11,7 +11,7 @@ app_version = "1.0.0rc1"
 after_install = "noxus_core.install.after_install"
 before_uninstall = "noxus_core.install.before_uninstall"
 has_permission = {
-    definition["name"]: "noxus_core.permissions.has_permission" for definition in CORE_SCHEMAS
+    definition["name"]: "noxus_core.permissions.has_permission" for definition in _CORE_SCHEMAS
 }
 permission_query_conditions = {"Audit Event": "noxus_core.permissions.audit_query"}
 doc_events = {

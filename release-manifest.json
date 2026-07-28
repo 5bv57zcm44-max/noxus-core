@@ -147,8 +147,8 @@
     },
     {
       "path": "frappe_apps/noxus_ai/noxus_ai/hooks.py",
-      "sha256": "a79ade6ea81f67b4c27b36a330dd4f5921270124ed85da9067c55822565453d6",
-      "size": 280
+      "sha256": "7dea51350f50b807c8db0bc9130f14c205a1025059fbf2a0da3aac554578da1d",
+      "size": 429
     },
     {
       "path": "frappe_apps/noxus_ai/noxus_ai/install.py",
@@ -217,8 +217,8 @@
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/hooks.py",
-      "sha256": "1c4b8eb3253f08b6b14f3cf113683b8075dd22a90788e86399967b1b904e59b0",
-      "size": 1193
+      "sha256": "f506707d07da46b0852af2d23f00f524c789600223e1347372420be8729ed2fb",
+      "size": 1211
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/install.py",
@@ -392,8 +392,8 @@
     },
     {
       "path": "frappe_apps/noxus_crm/noxus_crm/hooks.py",
-      "sha256": "36312638b8389d9c78d88cff9bd6106bea41b33a111837e1733c1f774b51f095",
-      "size": 366
+      "sha256": "3eb79f1a6d2759d5534c41bfbeea11ae58014807d2b7fb36ffa30c6766e65e30",
+      "size": 502
     },
     {
       "path": "frappe_apps/noxus_crm/noxus_crm/install.py",
@@ -442,8 +442,8 @@
     },
     {
       "path": "frappe_apps/noxus_education/noxus_education/hooks.py",
-      "sha256": "571b116d3013edfcca2b5b3624aa228a7270841f4811c829eb3c6f926ac40ec2",
-      "size": 533
+      "sha256": "e506e750f27948e448b1934275a1eb15cf66dd811b2a0369324406fb4d47374a",
+      "size": 657
     },
     {
       "path": "frappe_apps/noxus_education/noxus_education/install.py",
@@ -492,8 +492,8 @@
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus_inventory/hooks.py",
-      "sha256": "49cfd20df8e95803de497df7b8cc71b75a753402093b10a6ccf4db0f0adbb0fd",
-      "size": 469
+      "sha256": "75bcaab3afea93b6bbcd19699fc2e324a8600f33f0222546cbac27564304820a",
+      "size": 610
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus_inventory/install.py",
@@ -542,8 +542,8 @@
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/hooks.py",
-      "sha256": "1b96acfd245c05fff18144f8776e479f517b3989c0728c0d8a17237e8b617cf1",
-      "size": 585
+      "sha256": "f1ba9110bfb9ea96faa47172bd1f14497d4836a91e1b5aad3146b10b3ef4f1cb",
+      "size": 735
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/install.py",
@@ -592,8 +592,8 @@
     },
     {
       "path": "frappe_apps/noxus_projects/noxus_projects/hooks.py",
-      "sha256": "d1a38492de3d74bc49d578a1dde6de4e2d6af6840f131351ef9590a549b45ccf",
-      "size": 377
+      "sha256": "bbcceacb6c18a90b3377829c6d8a193a144418ffd02c04c014c3bbace3a146c4",
+      "size": 508
     },
     {
       "path": "frappe_apps/noxus_projects/noxus_projects/install.py",
@@ -642,8 +642,8 @@
     },
     {
       "path": "frappe_apps/noxus_support/noxus_support/hooks.py",
-      "sha256": "b3524f92fca3d922f6eb9459472b94bb3b473ec69d5d2555f05ffd74401144f2",
-      "size": 297
+      "sha256": "7a55b518524e31c21bd4f6dc3e457bb093ea156fc2f7cfb427705d4b9ba35e51",
+      "size": 425
     },
     {
       "path": "frappe_apps/noxus_support/noxus_support/install.py",
@@ -692,8 +692,8 @@
     },
     {
       "path": "frappe_apps/noxus_transport/noxus_transport/hooks.py",
-      "sha256": "676dda05cce3e05e7eda8f77bf016039b85b7fc004c59a481859ad956a3a0885",
-      "size": 551
+      "sha256": "6f35d26e4797ed35bb44c4c7647c293985058be20adeebffd642dde9ee7439a9",
+      "size": 693
     },
     {
       "path": "frappe_apps/noxus_transport/noxus_transport/install.py",

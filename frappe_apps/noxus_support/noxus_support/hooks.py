@@ -1,7 +1,10 @@
 app_name = "noxus_support"
 app_title = "NOXUS Support"
 app_publisher = "NOXUS AI"
+app_description = "Standalone support ticket workflows for NOXUS"
+app_email = "security@noxus.example"
 app_license = "GPL-3.0-or-later"
+app_version = "1.0.0rc1"
 after_install = "noxus_support.install.after_install"
 required_apps = ["noxus_core"]
 doc_events = {"Noxus Support Ticket": {"validate": "noxus_core.module_runtime.validate_record"}}
