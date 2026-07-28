@@ -36,4 +36,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Initialize Frappe restore operations from the Bench `sites` directory so existing site
   configuration resolves before the guarded database restore.
 - Install the system file-type detector required by Frappe's compressed backup restore preflight.
+- Privately stage Frappe gzip database dumps as uncompressed SQL for restore, preserve the mounted
+  archive, reject corrupt gzip input, and always remove the temporary staging file.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.
