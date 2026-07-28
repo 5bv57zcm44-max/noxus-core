@@ -562,7 +562,7 @@
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/schema.py",
-      "sha256": "df742309c2e23e7936841348667e1946933cc6e03b5cee2467ee77838c7fa852",
+      "sha256": "a0e82991e393b5ca169ec3e019511a7511890fe898564d8f92b987d32c80236a",
       "size": 6419
     },
     {
@@ -727,8 +727,8 @@
     },
     {
       "path": "frappe_apps/tests/test_app_contracts.py",
-      "sha256": "eeee37d31b643180bb64c186da4880c4a74a375b8553719476de5a562600a1cc",
-      "size": 4423
+      "sha256": "50f3b8b91763e686f3bc398253dca2a46ae599f899a574fda24b1fd153d15431",
+      "size": 5703
     },
     {
       "path": "infrastructure/NOTICE.md",

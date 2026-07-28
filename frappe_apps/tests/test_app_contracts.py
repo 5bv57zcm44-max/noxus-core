@@ -125,6 +125,33 @@ def test_dynamic_links_point_to_doctype_link_fields() -> None:
                 assert pointer["options"] == "DocType"
 
 
+def test_custom_link_targets_exist_before_their_consumers() -> None:
+    _prepare_imports()
+    manifests = []
+    schemas_by_app = {}
+    custom_doctypes = set()
+    for app in APPS:
+        raw = yaml.safe_load((APP_ROOT / app / "noxus-module.yml").read_text(encoding="utf-8"))
+        manifests.append(ModuleManifest.model_validate(raw))
+        schema_module = importlib.import_module(f"{app}.schema")
+        schemas = getattr(schema_module, "SCHEMAS", getattr(schema_module, "CORE_SCHEMAS", []))
+        schemas_by_app[app] = schemas
+        custom_doctypes.update(schema["name"] for schema in schemas)
+
+    installation_order = DependencyResolver(manifests).resolve(sorted(APPS)).installation_order
+    installed_doctypes = set()
+    for module in installation_order:
+        for schema in schemas_by_app[module.name]:
+            for field in schema["fields"]:
+                target = field.get("options")
+                if field["fieldtype"] == "Link" and target in custom_doctypes:
+                    assert target in installed_doctypes, (
+                        f"{module.name}.{schema['name']}.{field['fieldname']} references "
+                        f"{target} before Frappe creates it"
+                    )
+            installed_doctypes.add(schema["name"])
+
+
 def test_webhook_signatures_reject_changes() -> None:
     _prepare_imports()
     from noxus_core.services.webhooks import sign, verify

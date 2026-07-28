@@ -65,6 +65,22 @@ SCHEMAS = [
     ),
     operational_schema(
         "Noxus Maintenance",
+        "Maintenance Technician",
+        [
+            {
+                "fieldname": "user",
+                "label": "User",
+                "fieldtype": "Link",
+                "options": "User",
+                "reqd": 1,
+            },
+            {"fieldname": "skills", "label": "Skills", "fieldtype": "Small Text"},
+            {"fieldname": "available", "label": "Available", "fieldtype": "Check", "default": "1"},
+        ],
+        ROLES,
+    ),
+    operational_schema(
+        "Noxus Maintenance",
         "Maintenance Work Order",
         [
             {
@@ -101,22 +117,6 @@ SCHEMAS = [
                 "default": "Draft",
                 "reqd": 1,
             },
-        ],
-        ROLES,
-    ),
-    operational_schema(
-        "Noxus Maintenance",
-        "Maintenance Technician",
-        [
-            {
-                "fieldname": "user",
-                "label": "User",
-                "fieldtype": "Link",
-                "options": "User",
-                "reqd": 1,
-            },
-            {"fieldname": "skills", "label": "Skills", "fieldtype": "Small Text"},
-            {"fieldname": "available", "label": "Available", "fieldtype": "Check", "default": "1"},
         ],
         ROLES,
     ),

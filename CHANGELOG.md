@@ -27,4 +27,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Provide the standard nested Frappe module package declared by every NOXUS app.
 - Declare complete Frappe release metadata for all apps and hide internal schema imports from hooks.
 - Validate Dynamic Link contracts and point the optional ERPNext item adapter through `DocType`.
+- Create the Maintenance Technician before Work Orders that link to it and validate every bundled
+  custom DocType Link against dependency-aware Frappe installation order.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.
