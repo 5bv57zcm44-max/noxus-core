@@ -68,6 +68,7 @@ def test_runtime_image_installs_only_declared_local_apps() -> None:
         encoding="utf-8"
     )
     assert "/opt/noxus/apps/noxus_*" in dockerfile
+    assert "printf 'frappe\\n' > sites/apps.txt" in dockerfile
     assert 'pip install --no-cache-dir --editable "apps/$app_name"' in dockerfile
     assert 'bench get-app "$app"' not in dockerfile
 

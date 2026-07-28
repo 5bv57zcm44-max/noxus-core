@@ -32,6 +32,7 @@ COPY --chown=frappe:frappe frappe_apps /opt/noxus/apps
 COPY --chown=frappe:frappe infrastructure/scripts /opt/noxus/scripts
 WORKDIR /home/frappe/frappe-bench
 RUN set -eu; \
+    printf 'frappe\n' > sites/apps.txt; \
     for app_source in /opt/noxus/apps/noxus_*; do \
       app_name="$(basename "$app_source")"; \
       cp -a "$app_source" "apps/$app_name"; \

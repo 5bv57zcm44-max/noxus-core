@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import shutil
+import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -146,7 +147,7 @@ def lifecycle_action(
 
 
 def create_backup(context: RuntimeContext, project: ProjectConfig) -> dict[str, object]:
-    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    stamp = f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}-{uuid.uuid4().hex[:8]}"
     backup_dir = project.root / ".noxus" / "backups" / stamp
     if not context.dry_run:
         backup_dir.mkdir(parents=True, exist_ok=False)

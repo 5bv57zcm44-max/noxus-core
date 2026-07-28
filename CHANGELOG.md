@@ -19,3 +19,4 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Read protected Compose secret files before dropping the generated website container to `django`.
 - Route generated website container test commands through the secret-loading entrypoint.
 - Install bundled Frappe apps and pinned ERPNext source directly instead of parsing local paths as remotes.
+- Give every backup a collision-resistant UTC/UUID directory before restore preflight.

@@ -3,7 +3,7 @@ from pathlib import Path
 from noxus_module_sdk.project import ProjectConfig, ProjectType
 
 from noxusai.context import RuntimeContext
-from noxusai.services.lifecycle import lifecycle_action
+from noxusai.services.lifecycle import create_backup, lifecycle_action
 from noxusai.services.process import CommandResult, ProcessRunner
 
 
@@ -50,3 +50,23 @@ def test_dev_uses_development_profile_without_override(tmp_path: Path, monkeypat
     args = calls[-1]
     assert args[args.index("--profile") + 1] == "development"
     assert str(tmp_path / "compose.production.yaml") not in args
+
+
+def test_consecutive_backups_use_distinct_directories(tmp_path: Path) -> None:
+    database = tmp_path / "db.sqlite3"
+    database.write_bytes(b"sqlite fixture")
+    website = ProjectConfig(
+        name="example",
+        project_type=ProjectType.WEBSITE,
+        database="sqlite",
+        docker=False,
+        root=tmp_path,
+    )
+    context = RuntimeContext(cwd=tmp_path)
+
+    first = create_backup(context, website)
+    second = create_backup(context, website)
+
+    assert first["backup"] != second["backup"]
+    assert Path(str(first["backup"])).read_bytes() == b"sqlite fixture"
+    assert Path(str(second["backup"])).read_bytes() == b"sqlite fixture"
