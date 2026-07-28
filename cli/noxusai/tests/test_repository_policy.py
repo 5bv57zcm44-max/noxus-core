@@ -114,6 +114,14 @@ def test_frappe_site_creator_uses_the_bench_sites_directory() -> None:
     assert "frappe.init(site, new_site=True)" in creator
 
 
+def test_frappe_restore_uses_the_bench_sites_directory() -> None:
+    restore = (ROOT / "infrastructure" / "scripts" / "restore_site.py").read_text(encoding="utf-8")
+    assert 'os.environ.get("FRAPPE_BENCH_ROOT", "/home/frappe/frappe-bench")' in restore
+    assert 'sites_path = bench_root / "sites"' in restore
+    assert "os.chdir(sites_path)" in restore
+    assert "frappe.init(site)" in restore
+
+
 def test_frappe_runtime_commands_preserve_queue_lists_and_site_routing() -> None:
     compose = yaml.safe_load(
         (ROOT / "infrastructure" / "docker" / "compose.yaml").read_text(encoding="utf-8")

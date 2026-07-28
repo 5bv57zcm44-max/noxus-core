@@ -802,8 +802,8 @@
     },
     {
       "path": "infrastructure/scripts/restore_site.py",
-      "sha256": "72c1685bda7b5a0b78828a4ac6afde138420627869c58700a56ff181c1ef1916",
-      "size": 1435
+      "sha256": "d35688b5e212d2b6f4a809bc59c7e3f2e0eb4920a8dc6694332daa3e02d6340d",
+      "size": 1593
     },
     {
       "path": "infrastructure/scripts/verify_release.py",

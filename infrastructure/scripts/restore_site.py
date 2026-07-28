@@ -24,12 +24,15 @@ def read_secret(value_name: str, file_name: str) -> str:
 def main() -> None:
     site = os.environ.get("NOXUS_SITE", "").strip().lower()
     backup = Path(os.environ.get("NOXUS_BACKUP_PATH", "")).resolve()
-    if not site or not (Path("sites") / site / "site_config.json").is_file():
+    bench_root = Path(os.environ.get("FRAPPE_BENCH_ROOT", "/home/frappe/frappe-bench")).resolve()
+    sites_path = bench_root / "sites"
+    if not site or not (sites_path / site / "site_config.json").is_file():
         raise SystemExit("NOXUS_SITE must identify an existing site")
     if not backup.is_file():
         raise SystemExit("NOXUS_BACKUP_PATH must identify the mounted backup file")
 
     root_password = read_secret("MARIADB_ROOT_PASSWORD", "MARIADB_ROOT_PASSWORD_FILE")
+    os.chdir(sites_path)
     frappe.init(site)
     with filelock("site_restore", timeout=1):
         _restore(

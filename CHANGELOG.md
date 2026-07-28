@@ -33,4 +33,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
   queue lists as single command arguments.
 - Explicitly allow unauthenticated access to the intentionally minimal public health method while
   keeping detailed authenticated health data protected.
+- Initialize Frappe restore operations from the Bench `sites` directory so existing site
+  configuration resolves before the guarded database restore.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.
