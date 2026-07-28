@@ -747,8 +747,8 @@
     },
     {
       "path": "infrastructure/docker/compose.yaml",
-      "sha256": "07338c14bd3f3139ac04a66d669bee2964d5622fa5737f2f54e953249c486109",
-      "size": 5014
+      "sha256": "d3099eeda88c6deb828262303fe8673eddc430e7d5364f7bb53bf47785d88f3d",
+      "size": 5147
     },
     {
       "path": "infrastructure/docker/images/backend.Dockerfile",

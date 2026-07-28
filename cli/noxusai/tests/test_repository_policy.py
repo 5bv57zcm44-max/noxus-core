@@ -4,6 +4,8 @@ import json
 import re
 from pathlib import Path
 
+import yaml
+
 ROOT = Path(__file__).resolve().parents[3]
 PAYLOAD_PATHS = ("frappe_apps", "infrastructure", "ui/dist", "docs", "LICENSE")
 EXCLUDED_PARTS = {
@@ -110,6 +112,34 @@ def test_frappe_site_creator_uses_the_bench_sites_directory() -> None:
     assert 'sites_path = bench_root / "sites"' in creator
     assert "os.chdir(sites_path)" in creator
     assert "frappe.init(site, new_site=True)" in creator
+
+
+def test_frappe_runtime_commands_preserve_queue_lists_and_site_routing() -> None:
+    compose = yaml.safe_load(
+        (ROOT / "infrastructure" / "docker" / "compose.yaml").read_text(encoding="utf-8")
+    )
+    services = compose["services"]
+    assert services["worker-short"]["command"] == [
+        "bench",
+        "worker",
+        "--queue",
+        "short,default",
+    ]
+    assert services["worker-long"]["command"] == [
+        "bench",
+        "worker",
+        "--queue",
+        "long,default",
+    ]
+    health = services["backend"]["healthcheck"]["test"]
+    assert health[:5] == [
+        "CMD",
+        "curl",
+        "--fail",
+        "--header",
+        "Host: ${NOXUS_SITE:-noxus.localhost}",
+    ]
+    assert health[-1] == "http://localhost:8000/api/method/ping"
 
 
 def test_frappe_apps_provide_their_declared_module_packages() -> None:

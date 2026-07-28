@@ -29,4 +29,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Validate Dynamic Link contracts and point the optional ERPNext item adapter through `DocType`.
 - Create the Maintenance Technician before Work Orders that link to it and validate every bundled
   custom DocType Link against dependency-aware Frappe installation order.
+- Route backend health probes to the configured Frappe site and preserve comma-separated worker
+  queue lists as single command arguments.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.

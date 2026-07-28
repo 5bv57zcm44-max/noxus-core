@@ -100,7 +100,15 @@ services:
     profiles: [development, production]
     command: [bench, serve, --port, "8000"]
     healthcheck:
-      test: [CMD, curl, --fail, http://localhost:8000/api/method/ping]
+      test:
+        [
+          CMD,
+          curl,
+          --fail,
+          --header,
+          "Host: ${NOXUS_SITE:-noxus.localhost}",
+          http://localhost:8000/api/method/ping,
+        ]
       interval: 10s
       timeout: 5s
       retries: 30
@@ -108,12 +116,12 @@ services:
   worker-short:
     <<: *backend
     profiles: [development, production]
-    command: [bench, worker, --queue, short,default]
+    command: [bench, worker, --queue, "short,default"]
 
   worker-long:
     <<: *backend
     profiles: [development, production]
-    command: [bench, worker, --queue, long,default]
+    command: [bench, worker, --queue, "long,default"]
 
   scheduler:
     <<: *backend
