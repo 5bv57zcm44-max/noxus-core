@@ -22,3 +22,4 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Install ERPNext's exact Yarn lock before building its pinned frontend assets.
 - Give every backup a collision-resistant UTC/UUID directory before restore preflight.
 - Capture Frappe service logs and remove volumes when Compose fails during partial startup.
+- Load protected Frappe site secrets as root, then immediately drop to the `frappe` user.

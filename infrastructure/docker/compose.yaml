@@ -82,6 +82,7 @@ services:
     <<: *backend
     profiles: [development, production]
     restart: "no"
+    user: "0:0"
     depends_on:
       configurator: {condition: service_completed_successfully}
     environment:
@@ -92,7 +93,7 @@ services:
       NOXUS_ADMIN_PASSWORD_FILE: /run/secrets/admin_password
       MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
     secrets: [admin_password, mariadb_root_password]
-    command: [bash, /opt/noxus/scripts/create-site.sh]
+    command: [bash, /opt/noxus/scripts/create-site-entrypoint.sh]
 
   backend:
     <<: *backend

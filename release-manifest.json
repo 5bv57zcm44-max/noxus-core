@@ -702,13 +702,13 @@
     },
     {
       "path": "infrastructure/docker/compose.yaml",
-      "sha256": "f9dcf21248b68cc66de0d922cabc11b79aeeba63c2549ae70d442aaad8ee7f7f",
-      "size": 4987
+      "sha256": "07338c14bd3f3139ac04a66d669bee2964d5622fa5737f2f54e953249c486109",
+      "size": 5014
     },
     {
       "path": "infrastructure/docker/images/backend.Dockerfile",
-      "sha256": "1a870173dfd23ad8c7870a33bf2dbc79d7d527f012d468da69e96fef17519072",
-      "size": 2570
+      "sha256": "ed347e5fd6ed30d33cb8653532efa6ab1ec1611a33b70c83ad60419b83f3ed12",
+      "size": 2575
     },
     {
       "path": "infrastructure/docker/images/proxy.Dockerfile",
@@ -734,6 +734,11 @@
       "path": "infrastructure/scripts/configure.sh",
       "sha256": "629f004c62313b345682705cb29fe5d416c6f3165c3f00b06784f292568ab784",
       "size": 396
+    },
+    {
+      "path": "infrastructure/scripts/create-site-entrypoint.sh",
+      "sha256": "043f27322cbd08f33959bb72c224cb43c2613413f171bbcb8ba796444b8f0d60",
+      "size": 860
     },
     {
       "path": "infrastructure/scripts/create-site.sh",

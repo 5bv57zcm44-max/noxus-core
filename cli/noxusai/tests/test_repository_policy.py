@@ -85,6 +85,24 @@ def test_container_acceptance_captures_partial_start_failures() -> None:
     assert 'compose(project, ["down", "--volumes", "--remove-orphans"], check=False)' in acceptance
 
 
+def test_frappe_site_creator_drops_secret_reader_privileges() -> None:
+    compose = (ROOT / "infrastructure" / "docker" / "compose.yaml").read_text(encoding="utf-8")
+    entrypoint = (ROOT / "infrastructure" / "scripts" / "create-site-entrypoint.sh").read_text(
+        encoding="utf-8"
+    )
+    dockerfile = (ROOT / "infrastructure" / "docker" / "images" / "backend.Dockerfile").read_text(
+        encoding="utf-8"
+    )
+    site_creator = compose.split("  site-creator:", maxsplit=1)[1].split(
+        "\n  backend:", maxsplit=1
+    )[0]
+    assert 'user: "0:0"' in site_creator
+    assert "create-site-entrypoint.sh" in site_creator
+    assert " gosu " in dockerfile
+    assert "exec gosu frappe bash /opt/noxus/scripts/create-site.sh" in entrypoint
+    assert "unset NOXUS_ADMIN_PASSWORD_FILE MARIADB_ROOT_PASSWORD_FILE" in entrypoint
+
+
 def test_github_actions_are_pinned_to_immutable_commits() -> None:
     action = re.compile(r"^\s*- uses: [^@\s]+@([0-9a-f]{40})(?:\s+#.*)?$")
     for workflow in (ROOT / ".github" / "workflows").glob("*.yml"):
