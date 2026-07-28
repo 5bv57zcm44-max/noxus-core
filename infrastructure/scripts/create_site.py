@@ -33,7 +33,7 @@ def main() -> None:
     admin_password = read_secret("NOXUS_ADMIN_PASSWORD", "NOXUS_ADMIN_PASSWORD_FILE")
     root_password = read_secret("MARIADB_ROOT_PASSWORD", "MARIADB_ROOT_PASSWORD_FILE")
 
-    frappe.init(site, new_site=True)
+    frappe.init(site, sites_path="sites", new_site=True)
     _new_site(
         None,
         site,

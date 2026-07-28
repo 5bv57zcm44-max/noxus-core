@@ -747,8 +747,8 @@
     },
     {
       "path": "infrastructure/scripts/create_site.py",
-      "sha256": "4b240040b925c69c97f7321dbcfcb93c5f0aab8b479eab797957063ad57dad91",
-      "size": 1559
+      "sha256": "ca9b7c50f22220cfbe1e123644a5290d1f7709d62dc8ba99e7992259dcf1900b",
+      "size": 1579
     },
     {
       "path": "infrastructure/scripts/docker_acceptance.py",

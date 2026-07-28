@@ -103,6 +103,11 @@ def test_frappe_site_creator_drops_secret_reader_privileges() -> None:
     assert "unset NOXUS_ADMIN_PASSWORD_FILE MARIADB_ROOT_PASSWORD_FILE" in entrypoint
 
 
+def test_frappe_site_creator_uses_the_bench_sites_directory() -> None:
+    creator = (ROOT / "infrastructure" / "scripts" / "create_site.py").read_text(encoding="utf-8")
+    assert 'frappe.init(site, sites_path="sites", new_site=True)' in creator
+
+
 def test_github_actions_are_pinned_to_immutable_commits() -> None:
     action = re.compile(r"^\s*- uses: [^@\s]+@([0-9a-f]{40})(?:\s+#.*)?$")
     for workflow in (ROOT / ".github" / "workflows").glob("*.yml"):
