@@ -801,6 +801,11 @@
       "size": 6951
     },
     {
+      "path": "infrastructure/scripts/restore-site-entrypoint.sh",
+      "sha256": "20a0c7c706ec7809cd3fce38d951f681a069a221b400e062bc4d780c605b0077",
+      "size": 1296
+    },
+    {
       "path": "infrastructure/scripts/restore_site.py",
       "sha256": "aca9d2dbca1c4f889dd11f3f376807de1ff9196ed501437eafab7d48abde1f8b",
       "size": 2793

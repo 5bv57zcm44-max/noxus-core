@@ -272,6 +272,8 @@ def restore_backup(
                     "-v",
                     f"{resolved}:/restore/input:ro",
                     "site-creator",
+                    "bash",
+                    "/opt/noxus/scripts/restore-site-entrypoint.sh",
                     "env/bin/python",
                     "/opt/noxus/scripts/restore_site.py",
                 ],

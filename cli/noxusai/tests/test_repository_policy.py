@@ -132,6 +132,18 @@ def test_frappe_restore_uses_the_bench_sites_directory() -> None:
     assert "frappe.init(site)" in restore
 
 
+def test_frappe_restore_drops_secret_reader_privileges() -> None:
+    entrypoint = (ROOT / "infrastructure" / "scripts" / "restore-site-entrypoint.sh").read_text(
+        encoding="utf-8"
+    )
+    lifecycle = (ROOT / "cli" / "noxusai" / "services" / "lifecycle.py").read_text(encoding="utf-8")
+    assert "read_protected_secret MARIADB_ROOT_PASSWORD MARIADB_ROOT_PASSWORD_FILE" in entrypoint
+    assert "unset MARIADB_ROOT_PASSWORD_FILE" in entrypoint
+    assert 'install --owner=frappe --group=frappe --mode=600 "$backup_path"' in entrypoint
+    assert 'gosu frappe "$@"' in entrypoint
+    assert '"/opt/noxus/scripts/restore-site-entrypoint.sh"' in lifecycle
+
+
 def test_frappe_runtime_commands_preserve_queue_lists_and_site_routing() -> None:
     compose = yaml.safe_load(
         (ROOT / "infrastructure" / "docker" / "compose.yaml").read_text(encoding="utf-8")

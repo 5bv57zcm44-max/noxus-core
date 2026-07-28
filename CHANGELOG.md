@@ -38,4 +38,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Install the system file-type detector required by Frappe's compressed backup restore preflight.
 - Privately stage Frappe gzip database dumps as uncompressed SQL for restore, preserve the mounted
   archive, reject corrupt gzip input, and always remove the temporary staging file.
+- Read protected restore inputs as root, copy the mounted archive into a private `frappe`-owned
+  staging directory, and drop privileges before Frappe creates site locks or changes database state.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.
