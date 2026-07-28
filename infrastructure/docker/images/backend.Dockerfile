@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
       build-essential curl git jq libffi-dev libjpeg62-turbo-dev libmariadb-dev libpq-dev \
       libssl-dev mariadb-client pkg-config redis-tools wkhtmltopdf xvfb \
     && rm -rf /var/lib/apt/lists/* \
+    && rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg \
     && npm install --global yarn@1.22.22 \
+    && test "$(yarn --version)" = "1.22.22" \
     && useradd --create-home --shell /bin/bash frappe \
     && python -m pip install --no-cache-dir frappe-bench==5.27.0
 
