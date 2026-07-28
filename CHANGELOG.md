@@ -47,4 +47,6 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
   runtime image, and fail image scans on every fixable HIGH/CRITICAL finding.
 - Separate complete Trivy SARIF reporting from the blocking HIGH/CRITICAL gate so SARIF's documented
   all-severity behavior cannot turn an informational finding into an incorrect release failure.
+- Upgrade the SBOM action to its Node.js 24 release and create the release-metadata directory before
+  writing the SPDX JSON artifact.
 - Convert doctor command timeouts into required failures or optional warnings instead of crashing.

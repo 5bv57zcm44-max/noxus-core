@@ -52,8 +52,13 @@
     },
     {
       "path": "docs/release-notes-1.0.0rc1.md",
-      "sha256": "7943382b97fd96646f618b9593c724b8ae4f4ded62b0d417b8076ff707bb380b",
-      "size": 1043
+      "sha256": "c45cf63844a09aa5df3d8492f4ec4465a3692ae1e588238b2e3d017b343cf731",
+      "size": 1421
+    },
+    {
+      "path": "docs/releasing.md",
+      "sha256": "a46dd00522f148779cb4734ca372038918ec7c3947f8240c0097e7da6a21e00d",
+      "size": 3024
     },
     {
       "path": "docs/security-audit-exceptions.md",

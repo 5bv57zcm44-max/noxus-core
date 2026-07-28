@@ -116,7 +116,8 @@ are adapters over an optional ERPNext installation, never core patches.
 
 Deployment, backup, recovery, security, workflows, permissions, and troubleshooting documentation
 lives under `docs/`. CI and release automation create artifacts but public publication remains behind
-an explicit protected approval.
+an explicit protected approval. Maintainers should follow the
+[release and PyPI runbook](docs/releasing.md).
 
 ## Security, licensing, and contributing
 

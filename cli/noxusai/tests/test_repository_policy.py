@@ -268,3 +268,19 @@ def test_trivy_reporting_is_separate_from_release_blocking() -> None:
         assert gate["with"]["severity"] == "CRITICAL,HIGH"
         assert gate["with"]["exit-code"] == "1"
         assert gate["with"]["skip-setup-trivy"] is True
+
+
+def test_release_creates_metadata_directory_before_sbom() -> None:
+    workflow = yaml.safe_load(
+        (ROOT / ".github" / "workflows" / "release.yml").read_text(encoding="utf-8")
+    )
+    steps = workflow["jobs"]["artifacts"]["steps"]
+    mkdir_index = next(
+        index for index, step in enumerate(steps) if step.get("run") == "mkdir -p release-metadata"
+    )
+    sbom_index = next(
+        index
+        for index, step in enumerate(steps)
+        if str(step.get("uses", "")).startswith("anchore/sbom-action@")
+    )
+    assert mkdir_index < sbom_index

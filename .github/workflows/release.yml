@@ -25,7 +25,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: python infrastructure/scripts/build_release_manifest.py
       - run: python infrastructure/scripts/verify_release.py --containers
-      - uses: anchore/sbom-action@a930d0ac434e3182448fe678398ba5713717112a # v0.21.0
+      - run: mkdir -p release-metadata
+      - uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
         with: {path: ., format: spdx-json, output-file: release-metadata/noxus-core.spdx.json}
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with: {subject-path: "dist/noxusai-*"}
