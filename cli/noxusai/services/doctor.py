@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import socket
+import subprocess
 import sys
 from dataclasses import asdict, dataclass
 
@@ -21,9 +22,16 @@ def _command_check(runner: ProcessRunner, name: str, args: list[str], required: 
     executable = shutil.which(args[0])
     if not executable:
         return Check(name, "fail" if required else "warning", "not found", required)
-    result = runner.run(args, check=False, timeout=15)
-    detail = result.stdout.splitlines()[0] if result.stdout else result.stderr.splitlines()[0]
-    return Check(name, "pass" if result.returncode == 0 else "fail", detail, required)
+    try:
+        result = runner.run(args, check=False, timeout=15)
+    except subprocess.TimeoutExpired:
+        return Check(
+            name, "fail" if required else "warning", "timed out after 15 seconds", required
+        )
+    lines = (result.stdout or result.stderr).splitlines()
+    detail = lines[0] if lines else f"exited with status {result.returncode}"
+    status = "pass" if result.returncode == 0 else ("fail" if required else "warning")
+    return Check(name, status, detail, required)
 
 
 def _port_check(port: int) -> Check:

@@ -110,6 +110,21 @@ def test_core_defines_every_public_contract_doctype() -> None:
     } == names
 
 
+def test_dynamic_links_point_to_doctype_link_fields() -> None:
+    _prepare_imports()
+    for app in APPS:
+        schema_module = importlib.import_module(f"{app}.schema")
+        schemas = getattr(schema_module, "SCHEMAS", getattr(schema_module, "CORE_SCHEMAS", []))
+        for schema in schemas:
+            fields = {field["fieldname"]: field for field in schema["fields"]}
+            for field in fields.values():
+                if field["fieldtype"] != "Dynamic Link":
+                    continue
+                pointer = fields[field["options"]]
+                assert pointer["fieldtype"] == "Link"
+                assert pointer["options"] == "DocType"
+
+
 def test_webhook_signatures_reject_changes() -> None:
     _prepare_imports()
     from noxus_core.services.webhooks import sign, verify

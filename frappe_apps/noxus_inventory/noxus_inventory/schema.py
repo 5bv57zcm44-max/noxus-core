@@ -23,7 +23,8 @@ SCHEMAS = [
             {
                 "fieldname": "erpnext_reference_type",
                 "label": "ERPNext Reference Type",
-                "fieldtype": "Data",
+                "fieldtype": "Link",
+                "options": "DocType",
                 "hidden": 1,
             },
         ],

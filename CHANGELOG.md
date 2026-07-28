@@ -26,3 +26,5 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 - Run Frappe site creation from the Bench `sites` directory so app discovery and logging resolve correctly.
 - Provide the standard nested Frappe module package declared by every NOXUS app.
 - Declare complete Frappe release metadata for all apps and hide internal schema imports from hooks.
+- Validate Dynamic Link contracts and point the optional ERPNext item adapter through `DocType`.
+- Convert doctor command timeouts into required failures or optional warnings instead of crashing.
