@@ -175,9 +175,9 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     )
     system_environment = dockerfile.split("USER frappe", maxsplit=1)[0]
     build_cleanup = dockerfile.split("bench build --production", maxsplit=1)[1]
-    final_cleanup = dockerfile.split("USER root", maxsplit=1)[1].split(
-        "FROM scratch", maxsplit=1
-    )[0]
+    final_cleanup = dockerfile.split("USER root", maxsplit=1)[1].split("FROM scratch", maxsplit=1)[
+        0
+    ]
     initialization_layer = dockerfile.split("USER frappe", maxsplit=1)[1].split(
         "COPY --chown", maxsplit=1
     )[0]
