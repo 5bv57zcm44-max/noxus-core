@@ -59,7 +59,7 @@ def generate_module(
         "LICENSE": _license_text(),
         "pyproject.toml": (
             "[build-system]\n"
-            "requires = ['setuptools==80.10.2']\n"
+            "requires = ['setuptools==83.0.0']\n"
             "build-backend = 'setuptools.build_meta'\n\n"
             f"[project]\nname = '{package}'\nversion = '1.0.0'\n"
             "description = 'Generated NOXUS module'\n"

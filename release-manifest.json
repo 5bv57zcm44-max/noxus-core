@@ -187,8 +187,8 @@
     },
     {
       "path": "frappe_apps/noxus_ai/pyproject.toml",
-      "sha256": "caff089e3212e356ca9949fc94722f81b70fd8bded48f1993236d43ba04781d1",
-      "size": 306
+      "sha256": "206467824e312ef0fcf1b8d334422e8a81f09b0d083beab5f3ada735527e8ecb",
+      "size": 305
     },
     {
       "path": "frappe_apps/noxus_core/LICENSE",
@@ -377,8 +377,8 @@
     },
     {
       "path": "frappe_apps/noxus_core/pyproject.toml",
-      "sha256": "da9c7662dc9187d5cb3c7ba9e88e181685eb24da6684bd6415881bac8d83051f",
-      "size": 458
+      "sha256": "00c544e273b1a14234dec33d9d35f99f631316404707c5616a73d84a96451c96",
+      "size": 457
     },
     {
       "path": "frappe_apps/noxus_crm/noxus-module.yml",
@@ -427,8 +427,8 @@
     },
     {
       "path": "frappe_apps/noxus_crm/pyproject.toml",
-      "sha256": "a3314f5a206e1005d9070439b757297a81ee403139736482ba3ca46a1b991d01",
-      "size": 299
+      "sha256": "0b8971114d8d1321507ba9578dbffc82f87b2dbc7d2474cc1149929beca79a9a",
+      "size": 298
     },
     {
       "path": "frappe_apps/noxus_education/noxus-module.yml",
@@ -477,8 +477,8 @@
     },
     {
       "path": "frappe_apps/noxus_education/pyproject.toml",
-      "sha256": "3ce9b3f9b2326dadf3e1f09bc163836d48a779f5397634c0d53f81ba85c57f06",
-      "size": 311
+      "sha256": "2a98c9aa51c93bb08aafc285f6d0462aaa30e83a21d2261b77b330b37ef3963a",
+      "size": 310
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus-module.yml",
@@ -527,8 +527,8 @@
     },
     {
       "path": "frappe_apps/noxus_inventory/pyproject.toml",
-      "sha256": "a1e3d7f3f7f71841f5b898b60e2a5e58675fe120868f55df9c35ad41b55158cf",
-      "size": 317
+      "sha256": "599a6ddb2234df30c28daf837085b5da60856c123f9105008dfcd6d4fbde2158",
+      "size": 316
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus-module.yml",
@@ -577,8 +577,8 @@
     },
     {
       "path": "frappe_apps/noxus_maintenance/pyproject.toml",
-      "sha256": "47fadf4a419531c5171a8aaffb97db11d8c596153a144fd206be1e2f2ff94c1a",
-      "size": 317
+      "sha256": "30965c24cde46a7fe4823bff46ded48c469decd5fb063670dddda5cbf786822e",
+      "size": 316
     },
     {
       "path": "frappe_apps/noxus_projects/noxus-module.yml",
@@ -627,8 +627,8 @@
     },
     {
       "path": "frappe_apps/noxus_projects/pyproject.toml",
-      "sha256": "cbe21f7fd10185f13ee801656d20c36b50b78929baaa965e646281bc2ab7b856",
-      "size": 318
+      "sha256": "1aa103b851e72ea8cd472699997907090fe4027c4b3aa09fc8684ecd8a89bdd9",
+      "size": 317
     },
     {
       "path": "frappe_apps/noxus_support/noxus-module.yml",
@@ -677,8 +677,8 @@
     },
     {
       "path": "frappe_apps/noxus_support/pyproject.toml",
-      "sha256": "ed52b582f67cd23967edf63a8fabe535574b3d228920b9114baf4ade8328b3b1",
-      "size": 315
+      "sha256": "6a3d2d7f9ff982e9c193b074fb0e1fca11deaa9fa4ae301dca6a669776c9c56d",
+      "size": 314
     },
     {
       "path": "frappe_apps/noxus_transport/noxus-module.yml",
@@ -727,8 +727,8 @@
     },
     {
       "path": "frappe_apps/noxus_transport/pyproject.toml",
-      "sha256": "47a3a19e4828427196f080762809788062b56edd3ce2d755659e7183798a3389",
-      "size": 311
+      "sha256": "507ebdd84f92dc2c0bc0fd54794565bcaacb5c159510a7ca932419da77be60fc",
+      "size": 310
     },
     {
       "path": "frappe_apps/tests/__init__.py",
@@ -762,8 +762,8 @@
     },
     {
       "path": "infrastructure/docker/images/backend.Dockerfile",
-      "sha256": "2344389f6718112aead829efbc97c30fd359f91e965aba022e1e70dbe3e01618",
-      "size": 3530
+      "sha256": "b2b2220a91efff8f8454164fd1ad509ccaaf4a3cd2f64fb08dbdb6958a711d5a",
+      "size": 3529
     },
     {
       "path": "infrastructure/docker/images/proxy.Dockerfile",

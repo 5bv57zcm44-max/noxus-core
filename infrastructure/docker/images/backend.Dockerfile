@@ -57,7 +57,7 @@ RUN set -eu; \
          msgpack==1.2.1 \
          Pillow==12.3.0 \
          pypdf==6.14.2 \
-         setuptools==80.10.2 \
+         setuptools==83.0.0 \
     && bench build --production \
     && npm ci --prefix /opt/noxus/socketio-runtime --omit=dev --ignore-scripts --no-audit --no-fund \
     && rm -rf \
