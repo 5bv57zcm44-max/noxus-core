@@ -28,7 +28,9 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 ### Security
 
 - Override vulnerable transitive Frappe/ERPNext runtime installations with `msgpack 1.2.1` and
-  `setuptools 83.0.0`, while retaining the blocking fixable HIGH/CRITICAL image gate.
+  `setuptools 83.0.0`, and remove the superseded packages and pip cache inside the same immutable
+  Bench initialization layer so they cannot be recovered from image history. The blocking fixable
+  HIGH/CRITICAL image gate remains enabled.
 
 ## [1.0.0rc1] - 2026-07-28
 

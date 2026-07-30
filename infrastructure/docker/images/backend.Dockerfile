@@ -28,6 +28,10 @@ WORKDIR /home/frappe
 RUN git clone --filter=blob:none https://github.com/frappe/frappe.git /tmp/frappe \
     && git -C /tmp/frappe checkout "$FRAPPE_COMMIT" \
     && bench init --skip-assets --skip-redis-config-generation --frappe-path /tmp/frappe --python /usr/local/bin/python frappe-bench \
+    && ./frappe-bench/env/bin/python -m pip install --no-cache-dir \
+         msgpack==1.2.1 \
+         setuptools==83.0.0 \
+    && rm -rf /home/frappe/.cache/pip \
     && rm -rf /tmp/frappe/.git
 
 COPY --chown=frappe:frappe frappe_apps /opt/noxus/apps
