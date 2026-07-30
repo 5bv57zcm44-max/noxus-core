@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sys
 
 import typer
 
@@ -80,19 +81,22 @@ def run() -> None:
     try:
         app()
     except NoxusError as exc:
-        typer.echo(
-            json.dumps(
-                {
-                    "ok": False,
-                    "command": None,
-                    "data": None,
-                    "warnings": [],
-                    "error": {"message": str(exc), "code": int(exc.exit_code)},
-                }
-            ),
-            err=True,
-        )
-        raise typer.Exit(exc.exit_code) from exc
+        if "--json" in sys.argv[1:]:
+            typer.echo(
+                json.dumps(
+                    {
+                        "ok": False,
+                        "command": None,
+                        "data": None,
+                        "warnings": [],
+                        "error": {"message": str(exc), "code": int(exc.exit_code)},
+                    }
+                ),
+                err=True,
+            )
+        else:
+            typer.secho(f"Error: {exc}", fg=typer.colors.RED, err=True)
+        raise SystemExit(int(exc.exit_code)) from None
 
 
 if __name__ == "__main__":

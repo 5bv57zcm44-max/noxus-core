@@ -54,7 +54,7 @@ export function SolutionBuilder() {
       language: "both" as const, modules: chosen.map((item, index) => ({ name: item.name, version: item.version, features: item.features, install_order: index })),
       roles: [...new Set(chosen.flatMap((item) => item.roles))], workflows: [...new Set(chosen.flatMap((item) => item.workflows))], integrations: [],
       branding: { product_name: productName, accent_color: accent, default_direction: defaultDirection },
-      deployment: { environment: deploymentProfile, with_erpnext: selected.has("erpnext"), http_port: 8080 }, generator_version: "1.0.0rc1",
+      deployment: { environment: deploymentProfile, with_erpnext: selected.has("erpnext"), http_port: 8080 }, generator_version: "1.0.0",
     };
     return { ...body, checksum: await checksum(body) };
   };

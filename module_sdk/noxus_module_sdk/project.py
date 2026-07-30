@@ -27,7 +27,7 @@ class ProjectConfig(StrictModel):
     site_name: str | None = None
     modules: list[str] = Field(default_factory=list)
     with_erpnext: bool = False
-    template_version: str = "1.0.0rc1"
+    template_version: str = "1.0.0"
     root: Path = Path(".")
 
     @field_validator("name")

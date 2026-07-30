@@ -7,7 +7,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
-SLUG_PATTERN = re.compile(r"^[a-z][a-z0-9_-]{1,62}[a-z0-9]$")
+SLUG_PATTERN = re.compile(r"^[a-z][a-z0-9-]{1,62}[a-z0-9]$")
 MODULE_PATTERN = re.compile(r"^noxus_[a-z](?:[a-z0-9_]{0,56}[a-z0-9])?$")
 
 

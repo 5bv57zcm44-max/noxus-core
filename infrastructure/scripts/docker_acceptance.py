@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import http.cookiejar
 import json
 import os
 import secrets
@@ -12,11 +13,22 @@ import sys
 import tempfile
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 ALL_MODULES = "crm,inventory,projects,support,maintenance,transport,education,ai"
+INDEPENDENT_APP_SETS = {
+    "crm": ["noxus_core", "noxus_crm"],
+    "inventory": ["noxus_core", "noxus_inventory"],
+    "projects": ["noxus_core", "noxus_projects"],
+    "support": ["noxus_core", "noxus_support"],
+    "maintenance": ["noxus_core", "noxus_inventory", "noxus_maintenance"],
+    "transport": ["noxus_core", "noxus_transport"],
+    "education": ["noxus_core", "noxus_education"],
+    "ai": ["noxus_core", "noxus_ai"],
+}
 
 
 def run(
@@ -62,11 +74,16 @@ def wait_for_health(url: str, timeout: int = 300, *, host: str | None = None) ->
 
 
 def compose(
-    project: Path, args: list[str], *, check: bool = True
+    project: Path,
+    args: list[str],
+    *,
+    environment: dict[str, str] | None = None,
+    check: bool = True,
 ) -> subprocess.CompletedProcess[str]:
     return run(
         ["docker", "compose", "--profile", "development", *args],
         cwd=project,
+        environment=environment,
         check=check,
     )
 
@@ -79,6 +96,140 @@ def newest_database_backup(project: Path) -> Path:
     if not candidates:
         raise RuntimeError("Frappe backup did not produce a compressed database archive")
     return candidates[-1]
+
+
+def response_data(payload: dict[str, object]) -> object:
+    if "data" in payload:
+        return payload["data"]
+    if "message" in payload:
+        return payload["message"]
+    raise RuntimeError(f"Frappe response did not use a supported envelope: {sorted(payload)}")
+
+
+def api_request(
+    opener: urllib.request.OpenerDirector,
+    site: str,
+    path: str,
+    *,
+    payload: dict[str, object] | None = None,
+    csrf_token: str = "",
+) -> dict[str, object]:
+    body = json.dumps(payload).encode() if payload is not None else None
+    headers = {"Host": site, "Accept": "application/json"}
+    if body is not None:
+        headers["Content-Type"] = "application/json"
+        if csrf_token:
+            headers["X-Frappe-CSRF-Token"] = csrf_token
+    request = urllib.request.Request(f"http://127.0.0.1:8080{path}", data=body, headers=headers)
+    with opener.open(request, timeout=30) as response:
+        decoded = json.loads(response.read())
+    if not isinstance(decoded, dict):
+        raise RuntimeError("Frappe returned a non-object JSON response")
+    return decoded
+
+
+def exercise_live_api_contract(site: str, admin_password: str) -> None:
+    catalog_path = "/api/v2/method/noxus_core.api.v1.catalog"
+    try:
+        api_request(urllib.request.build_opener(), site, catalog_path)
+    except urllib.error.HTTPError as exc:
+        if exc.code not in {401, 403, 417}:
+            raise RuntimeError(f"unexpected unauthenticated catalog status: {exc.code}") from exc
+    else:
+        raise RuntimeError("the protected module catalog allowed an unauthenticated request")
+
+    cookies = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookies))
+    login = api_request(
+        opener,
+        site,
+        "/api/method/login",
+        payload={"usr": "Administrator", "pwd": admin_password},
+    )
+    if not response_data(login):
+        raise RuntimeError("Frappe login did not return a successful response")
+    csrf_token = next(
+        (urllib.parse.unquote(cookie.value) for cookie in cookies if cookie.name == "csrf_token"),
+        "",
+    )
+
+    catalog = response_data(api_request(opener, site, catalog_path))
+    if not isinstance(catalog, dict):
+        raise RuntimeError("catalog response is not an object")
+    modules = catalog.get("modules")
+    names = (
+        {item.get("name") for item in modules if isinstance(item, dict)}
+        if isinstance(modules, list)
+        else set()
+    )
+    if "noxus_core" not in names:
+        raise RuntimeError("authenticated catalog did not include noxus_core")
+    marketplace = catalog.get("remote_marketplace")
+    if not isinstance(marketplace, dict) or marketplace.get("available") is not False:
+        raise RuntimeError("remote marketplace must remain visibly unavailable in Community v1")
+
+    resolved = response_data(
+        api_request(
+            opener,
+            site,
+            "/api/v2/method/noxus_core.api.v1.resolve_modules",
+            payload={
+                "request": {
+                    "modules": ["noxus_maintenance"],
+                    "platform": {"python": "3.14.6", "frappe": "16.28.0"},
+                }
+            },
+            csrf_token=csrf_token,
+        )
+    )
+    expected_order = ["noxus_core", "noxus_inventory", "noxus_maintenance"]
+    if not isinstance(resolved, dict) or resolved.get("install_order") != expected_order:
+        raise RuntimeError(f"live dependency resolution returned an unexpected result: {resolved}")
+
+
+def installed_apps(project: Path, site: str) -> set[str]:
+    result = compose(
+        project,
+        [
+            "exec",
+            "-T",
+            "backend",
+            "bench",
+            "--site",
+            site,
+            "list-apps",
+            "--format",
+            "json",
+        ],
+    )
+    decoded = json.loads(result.stdout)
+    return set(decoded.get(site, []))
+
+
+def exercise_independent_installs(project: Path, admin_password: str) -> None:
+    for label, apps in INDEPENDENT_APP_SETS.items():
+        site = f"independent-{label}.localhost"
+        compose(
+            project,
+            [
+                "run",
+                "--rm",
+                "-T",
+                "-e",
+                "NOXUS_ADMIN_PASSWORD",
+                "-e",
+                f"NOXUS_SITE={site}",
+                "-e",
+                f"NOXUS_APPS={','.join(apps)}",
+                "-e",
+                "NOXUS_WITH_ERPNEXT=0",
+                "site-creator",
+            ],
+            environment={"NOXUS_ADMIN_PASSWORD": admin_password},
+        )
+        missing = set(apps) - installed_apps(project, site)
+        if missing:
+            raise RuntimeError(f"{label} independent install is incomplete: {sorted(missing)}")
 
 
 def main() -> None:
@@ -145,27 +296,14 @@ def main() -> None:
             timeout=120,
             host=site,
         )
-        apps_result = compose(
-            project,
-            [
-                "exec",
-                "-T",
-                "backend",
-                "bench",
-                "--site",
-                site,
-                "list-apps",
-                "--format",
-                "json",
-            ],
-        )
-        installed = json.loads(apps_result.stdout)
         expected = {"frappe", "noxus_core", *(f"noxus_{name}" for name in ALL_MODULES.split(","))}
         if args.with_erpnext:
             expected.add("erpnext")
-        missing = expected - set(installed.get(site, []))
+        missing = expected - installed_apps(project, site)
         if missing:
             raise RuntimeError(f"installed app set is incomplete: {sorted(missing)}")
+
+        exercise_live_api_contract(site, admin_password)
 
         compose(
             project,
@@ -190,6 +328,8 @@ def main() -> None:
                 "NOXUS_TEST_ADMIN_PASSWORD": admin_password,
             },
         )
+        if not args.with_erpnext:
+            exercise_independent_installs(project, admin_password)
 
         run([sys.executable, "-m", "noxusai.main", "backup"], cwd=project)
         archive = newest_database_backup(project)

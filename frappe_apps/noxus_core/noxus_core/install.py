@@ -47,7 +47,7 @@ def after_install() -> None:
     from noxus_core.services.registry import synchronize_registry
 
     synchronize_registry()
-    record_event("core.installed", "App", "noxus_core", {"version": "1.0.0rc1"})
+    record_event("core.installed", "App", "noxus_core", {"version": "1.0.0"})
 
 
 def before_uninstall() -> None:

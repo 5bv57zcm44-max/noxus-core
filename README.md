@@ -13,9 +13,9 @@ Install the CLI in a dedicated virtual environment or with `pipx`; do not instal
 Python environment as Frappe Bench. Bench 5.31.0 constrains a vulnerable Click 8.2 line, while NOXUS
 locks the remediated Click 8.3.3 release. The generated Frappe runtime remains isolated in containers.
 
-The `1.0.0rc1` release candidate is published on
-[PyPI](https://pypi.org/project/noxusai/1.0.0rc1/) and is installable with the command above. Pin the
-exact candidate version for evaluated deployments: `pip install noxusai==1.0.0rc1`.
+The stable `1.0.0` release is distributed through
+[PyPI](https://pypi.org/project/noxusai/1.0.0/) and is installable with the command above. Production
+deployments may pin it explicitly with `pip install noxusai==1.0.0`.
 
 ## Who it is for
 
@@ -116,9 +116,9 @@ are adapters over an optional ERPNext installation, never core patches.
   remains mandatory before publication.
 
 Deployment, backup, recovery, security, workflows, permissions, and troubleshooting documentation
-lives under `docs/`. Release publication remains behind an explicit protected approval; `1.0.0rc1`
-was published through PyPI Trusted Publishing after its complete GitHub-hosted release gate passed.
-Maintainers should follow the [release and PyPI runbook](docs/releasing.md).
+lives under `docs/`. Releases are published only through PyPI Trusted Publishing after the complete
+GitHub-hosted release gate passes. Maintainers should follow the
+[release and PyPI runbook](docs/releasing.md).
 
 ## Security, licensing, and contributing
 

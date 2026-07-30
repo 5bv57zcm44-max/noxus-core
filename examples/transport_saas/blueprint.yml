@@ -3,12 +3,13 @@ name: transport-operations
 industry: transportation
 language: both
 modules:
-  - {name: noxus_core, version: 1.0.0rc1, features: [registry, blueprints], install_order: 0}
-  - {name: noxus_transport, version: 1.0.0rc1, features: [vehicles, drivers, trips, location_events], install_order: 1}
+  - {name: noxus_core, version: 1.0.0, features: [registry, blueprints], install_order: 0}
+  - {name: noxus_transport, version: 1.0.0, features: [vehicles, drivers, trips, location_events], install_order: 1}
 roles: [Transport Manager, Dispatcher, Driver, Transport Viewer]
 workflows: [Trip Dispatch]
 integrations: []
 branding: {product_name: NOXUS Transport, accent_color: "#4F46E5", default_direction: ltr}
 deployment: {environment: development, with_erpnext: false, http_port: 8080}
-generated_by: 1.0.0rc1
-checksum: 1f36ae6ff5786c3fa87ac56c47c231025c49faf45caadc9649419a45e9ed91a1
+generated_by: 1.0.0
+generated_at: 2026-07-30T00:00:00Z
+checksum: 1816d675615422cd7ec944f6ec3cff82a486256ead7727436e6c2263be22243f

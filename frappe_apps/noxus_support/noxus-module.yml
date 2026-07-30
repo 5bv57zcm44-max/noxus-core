@@ -1,12 +1,12 @@
 schema_version: 1
 name: noxus_support
 display_name: Support
-version: 1.0.0rc1
+version: 1.0.0
 description: Support tickets, assignment, and resolution workflow
 publisher: NOXUS AI
 license: GPL-3.0-or-later
 category: business
-dependencies: {required: ["noxus_core>=1.0.0rc1"], recommended: [], conflicts: []}
+dependencies: {required: ["noxus_core>=1.0.0"], recommended: [], conflicts: []}
 platform: {python: ">=3.14,<3.15", frappe: ">=16.28,<17", erpnext: null}
 features: [tickets, assignment, sla_status]
 roles: [Support Manager, Support Agent]

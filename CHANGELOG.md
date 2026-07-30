@@ -4,6 +4,29 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-07-30
+
+### Added
+
+- Qualify minimal and full generated PostgreSQL projects independently in disposable containers.
+- Exercise the live authenticated Frappe catalog and dependency-resolution contracts, every bundled
+  app as an independent installation, and protected support workflow transitions.
+- Publish stable release metadata, documentation, SBOM, build provenance, and immutable artifacts.
+
+### Changed
+
+- Resolve generated SaaS app installation order from the strict module manifests instead of an
+  ad-hoc list.
+- Mark the package as Production/Stable and point all public metadata at the release repository.
+
+### Fixed
+
+- Convert invalid project names and unsafe destinations into documented CLI errors instead of raw
+  tracebacks, while allowing interactive users to retry immediately.
+- Make project slugs match their documented lowercase letters, numbers, and hyphens contract.
+
+## [1.0.0rc1] - 2026-07-28
+
 ### Added
 
 - Initial production implementation for the `1.0.0rc1` release candidate.

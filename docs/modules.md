@@ -1,7 +1,7 @@
 # Module SDK and authoring
 
 Every module carries strict `noxus-module.yml` schema version 1. Unknown fields fail validation.
-Dependencies use concise PEP 440 syntax such as `noxus_core>=1.0.0rc1`; required, recommended, and
+Dependencies use concise PEP 440 syntax such as `noxus_core>=1.0.0`; required, recommended, and
 conflicting edges are distinct. The resolver validates Python/Frappe/ERPNext constraints, detects
 missing nodes and explicit cycles, and emits a deterministic topological order.
 

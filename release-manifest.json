@@ -37,8 +37,8 @@
     },
     {
       "path": "docs/modules.md",
-      "sha256": "6dbc227a79e5c968dd540c0597429fe524b6a2c1e227ad1f2eb753aa8d0e2a38",
-      "size": 910
+      "sha256": "8f7011b50b66660cca2b693c34353583202c2e16002cb00c40c230a114bf5490",
+      "size": 907
     },
     {
       "path": "docs/permissions.md",
@@ -51,14 +51,19 @@
       "size": 1206
     },
     {
+      "path": "docs/release-notes-1.0.0.md",
+      "sha256": "2d1863be1107cdad958528832de61bec5235307700a43bb92c33ffb3647072e3",
+      "size": 1566
+    },
+    {
       "path": "docs/release-notes-1.0.0rc1.md",
       "sha256": "20f73d26c252a6c1e8877d8657f59cd1d1ee06d1b1fe5edd1da4e6d408f95f51",
       "size": 1734
     },
     {
       "path": "docs/releasing.md",
-      "sha256": "ca182d926d7feb2c67331336ee2b3b394882f28804d41209cce8a460baab924c",
-      "size": 3037
+      "sha256": "5ee1f451761de161d9fc434e7e2968893db5ef83670188141fa52e0be0a27d12",
+      "size": 3032
     },
     {
       "path": "docs/security-audit-exceptions.md",
@@ -112,8 +117,8 @@
     },
     {
       "path": "docs/versions.md",
-      "sha256": "171b056d82235167d69303897b9dba1301f82b78796c14c9da2e7f49db94a1d4",
-      "size": 1200
+      "sha256": "e0d655440a6d64467b7572861866ac2e58edb712955a34e7c2a4ab2d49dd5c4b",
+      "size": 1197
     },
     {
       "path": "docs/website-generator.md",
@@ -132,13 +137,13 @@
     },
     {
       "path": "frappe_apps/noxus_ai/noxus-module.yml",
-      "sha256": "15d0ba7964a551e1108332725648d8d4e33393e8e5ac48b8fe47acddf5bcad30",
-      "size": 617
+      "sha256": "1bd42aa964114112d2a281f2190801db61399ae35b65821804f49c5fcbb90c87",
+      "size": 611
     },
     {
       "path": "frappe_apps/noxus_ai/noxus_ai/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_ai/noxus_ai/api/__init__.py",
@@ -152,8 +157,8 @@
     },
     {
       "path": "frappe_apps/noxus_ai/noxus_ai/hooks.py",
-      "sha256": "7dea51350f50b807c8db0bc9130f14c205a1025059fbf2a0da3aac554578da1d",
-      "size": 429
+      "sha256": "6268ef689ec0822430a10dca6390d04c69e20061c1c661867ec1e4b779e1212d",
+      "size": 426
     },
     {
       "path": "frappe_apps/noxus_ai/noxus_ai/install.py",
@@ -182,8 +187,8 @@
     },
     {
       "path": "frappe_apps/noxus_ai/pyproject.toml",
-      "sha256": "db13cb0534231b18f52140c9a282940cdabf43873907a31e7feb60105cf74a86",
-      "size": 309
+      "sha256": "caff089e3212e356ca9949fc94722f81b70fd8bded48f1993236d43ba04781d1",
+      "size": 306
     },
     {
       "path": "frappe_apps/noxus_core/LICENSE",
@@ -197,13 +202,13 @@
     },
     {
       "path": "frappe_apps/noxus_core/noxus-module.yml",
-      "sha256": "39d4d524a79bfadc15e92fd290be0a567bfa66283abc2fc4ee3d38e5633c888e",
-      "size": 674
+      "sha256": "c5096f079794a1f04779a4ddf8b108ac9bf221ebccbc9c81e33aa68da24971d6",
+      "size": 671
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/api/__init__.py",
@@ -222,13 +227,13 @@
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/hooks.py",
-      "sha256": "f506707d07da46b0852af2d23f00f524c789600223e1347372420be8729ed2fb",
-      "size": 1211
+      "sha256": "6fa4878f6f5d0f17e7e8425bc3f88047a142905b5ba0d47e5931b4c2a946ed6d",
+      "size": 1208
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/install.py",
-      "sha256": "520815c60c1fa05bdfef4be19e69796a3bd6d3a17f6b3aebe4d0b6aea4ef1698",
-      "size": 2070
+      "sha256": "938defdc9dfd4df02d73d112c40ef9f7eca9ef0ef72f610d2440294af7616664",
+      "size": 2067
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/module_runtime.py",
@@ -367,23 +372,23 @@
     },
     {
       "path": "frappe_apps/noxus_core/noxus_core/tests/test_permissions.py",
-      "sha256": "16543d375e7f9d23ae9c97e562bd3acdb873b65258174b2fca710a7e20f245e8",
-      "size": 982
+      "sha256": "ddfd611fae5751700350e3ef0f6918f5b86897917557d801eb3a26beb490eba0",
+      "size": 3896
     },
     {
       "path": "frappe_apps/noxus_core/pyproject.toml",
-      "sha256": "fcd88bb5379828a42001beffa0bbff982a7e1e424e7f65f257143ad2695db036",
-      "size": 461
+      "sha256": "da9c7662dc9187d5cb3c7ba9e88e181685eb24da6684bd6415881bac8d83051f",
+      "size": 458
     },
     {
       "path": "frappe_apps/noxus_crm/noxus-module.yml",
-      "sha256": "3cd3b5e5e2f58d2533b895ff1a187a15412e2d7aad7a10b3b6d9f40ddca5cee8",
-      "size": 564
+      "sha256": "63d3524470a74acfd43a8b97eba2ddf9fb113eafe374f7c70fa99e33c6bd8ff2",
+      "size": 558
     },
     {
       "path": "frappe_apps/noxus_crm/noxus_crm/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_crm/noxus_crm/api/__init__.py",
@@ -397,8 +402,8 @@
     },
     {
       "path": "frappe_apps/noxus_crm/noxus_crm/hooks.py",
-      "sha256": "3eb79f1a6d2759d5534c41bfbeea11ae58014807d2b7fb36ffa30c6766e65e30",
-      "size": 502
+      "sha256": "dd989cdb0c79a65f38648a4bea22ee4fb0cd8f73a10cd5a498c6afdfb75a6c71",
+      "size": 499
     },
     {
       "path": "frappe_apps/noxus_crm/noxus_crm/install.py",
@@ -422,18 +427,18 @@
     },
     {
       "path": "frappe_apps/noxus_crm/pyproject.toml",
-      "sha256": "0b848c25ecb3cb5a526868b9a3583c53a1332f7e1b7b5c0215656e0afaa87ec1",
-      "size": 302
+      "sha256": "a3314f5a206e1005d9070439b757297a81ee403139736482ba3ca46a1b991d01",
+      "size": 299
     },
     {
       "path": "frappe_apps/noxus_education/noxus-module.yml",
-      "sha256": "1a9f2c70ba1398d7babec9eb1a1705a8ce6bc97653fd40092c0a906c78baf851",
-      "size": 757
+      "sha256": "28cf4af09ff7eee2b3ca4e2253f0467a918a696643dcc484b830d81e819bfa8f",
+      "size": 751
     },
     {
       "path": "frappe_apps/noxus_education/noxus_education/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_education/noxus_education/api/__init__.py",
@@ -447,8 +452,8 @@
     },
     {
       "path": "frappe_apps/noxus_education/noxus_education/hooks.py",
-      "sha256": "e506e750f27948e448b1934275a1eb15cf66dd811b2a0369324406fb4d47374a",
-      "size": 657
+      "sha256": "71642bd1fb8337ffa05f5985d8ad465b6f4e3098f976460a1456cb76bd23ff03",
+      "size": 654
     },
     {
       "path": "frappe_apps/noxus_education/noxus_education/install.py",
@@ -472,18 +477,18 @@
     },
     {
       "path": "frappe_apps/noxus_education/pyproject.toml",
-      "sha256": "daece1dc2152bb2ec4a4689b261a2cd62007bc5c2d60262f1eb6336e28a406b9",
-      "size": 314
+      "sha256": "3ce9b3f9b2326dadf3e1f09bc163836d48a779f5397634c0d53f81ba85c57f06",
+      "size": 311
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus-module.yml",
-      "sha256": "4f7d14e2c60025b130af9f57e900fcd18f96eda86fa3204905e4365abfed9d44",
-      "size": 619
+      "sha256": "54ed63c96b79a1405e8fdb4ef023c5a7b34838212d2654b28702e9c26b0081b4",
+      "size": 613
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus_inventory/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus_inventory/api/__init__.py",
@@ -497,8 +502,8 @@
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus_inventory/hooks.py",
-      "sha256": "75bcaab3afea93b6bbcd19699fc2e324a8600f33f0222546cbac27564304820a",
-      "size": 610
+      "sha256": "aaf55e957e1b55e71f2b0f0fe62c5ef79de16e656bd713151b16b1500a2280e0",
+      "size": 607
     },
     {
       "path": "frappe_apps/noxus_inventory/noxus_inventory/install.py",
@@ -522,18 +527,18 @@
     },
     {
       "path": "frappe_apps/noxus_inventory/pyproject.toml",
-      "sha256": "d7cffccf71b23a418be8c3b5659d5e2a89cde2c1bacda818d15ec020971a1d06",
-      "size": 320
+      "sha256": "a1e3d7f3f7f71841f5b898b60e2a5e58675fe120868f55df9c35ad41b55158cf",
+      "size": 317
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus-module.yml",
-      "sha256": "741503be4ebad02459cc8b5387a3c312d035ea8432db4da0987121c64b9b0aca",
-      "size": 838
+      "sha256": "00e87f4fa2a3bcd6d027a986b83c5c5ccd8ce9fe4961e350ec91feb7e2e407ba",
+      "size": 829
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/api/__init__.py",
@@ -547,8 +552,8 @@
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/hooks.py",
-      "sha256": "f1ba9110bfb9ea96faa47172bd1f14497d4836a91e1b5aad3146b10b3ef4f1cb",
-      "size": 735
+      "sha256": "9708fdc9f2a806842bde887f5bcd1efc7ceeac4e6e456f03ef569f5a868497fc",
+      "size": 732
     },
     {
       "path": "frappe_apps/noxus_maintenance/noxus_maintenance/install.py",
@@ -572,18 +577,18 @@
     },
     {
       "path": "frappe_apps/noxus_maintenance/pyproject.toml",
-      "sha256": "847b5361048f81ab6c2a648bdec3146ba0e706cade4db62c24537719e81673bb",
-      "size": 320
+      "sha256": "47fadf4a419531c5171a8aaffb97db11d8c596153a144fd206be1e2f2ff94c1a",
+      "size": 317
     },
     {
       "path": "frappe_apps/noxus_projects/noxus-module.yml",
-      "sha256": "87fd778256a691890e51b0571e20f0a98a9dea65d57eb0d20e5cba2fc8ca2f52",
-      "size": 569
+      "sha256": "4c23e8931abec35e30ada6c51438bbb02cb3047330b216a9a55bc530b564e2ef",
+      "size": 563
     },
     {
       "path": "frappe_apps/noxus_projects/noxus_projects/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_projects/noxus_projects/api/__init__.py",
@@ -597,8 +602,8 @@
     },
     {
       "path": "frappe_apps/noxus_projects/noxus_projects/hooks.py",
-      "sha256": "bbcceacb6c18a90b3377829c6d8a193a144418ffd02c04c014c3bbace3a146c4",
-      "size": 508
+      "sha256": "4c174503e050d3e5d25bb49776e71491af6698b84da712fbb54cb83cc2abd9de",
+      "size": 505
     },
     {
       "path": "frappe_apps/noxus_projects/noxus_projects/install.py",
@@ -622,18 +627,18 @@
     },
     {
       "path": "frappe_apps/noxus_projects/pyproject.toml",
-      "sha256": "fbcf84fb07b0ea4de585a4fda25ce086159e00930d614b126897855de4f86159",
-      "size": 321
+      "sha256": "cbe21f7fd10185f13ee801656d20c36b50b78929baaa965e646281bc2ab7b856",
+      "size": 318
     },
     {
       "path": "frappe_apps/noxus_support/noxus-module.yml",
-      "sha256": "30f810e9ce577ac814727a65258a1755687ab6d75a1263427f5e84f374760b97",
-      "size": 594
+      "sha256": "4071b8dae3999244fa20d5433d47115f953ab573dc1fbac665a886d7f525cdbe",
+      "size": 588
     },
     {
       "path": "frappe_apps/noxus_support/noxus_support/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_support/noxus_support/api/__init__.py",
@@ -647,8 +652,8 @@
     },
     {
       "path": "frappe_apps/noxus_support/noxus_support/hooks.py",
-      "sha256": "7a55b518524e31c21bd4f6dc3e457bb093ea156fc2f7cfb427705d4b9ba35e51",
-      "size": 425
+      "sha256": "50396a6e01777f58c9e2da474ecd2e20f60fda86673fb3af8d789cfbe14472c0",
+      "size": 422
     },
     {
       "path": "frappe_apps/noxus_support/noxus_support/install.py",
@@ -672,18 +677,18 @@
     },
     {
       "path": "frappe_apps/noxus_support/pyproject.toml",
-      "sha256": "a8d3fca0e7a33aaec6bf1e16e60b2e84ff5d2cbf8f59ff9dd552c7f29410217a",
-      "size": 318
+      "sha256": "ed52b582f67cd23967edf63a8fabe535574b3d228920b9114baf4ade8328b3b1",
+      "size": 315
     },
     {
       "path": "frappe_apps/noxus_transport/noxus-module.yml",
-      "sha256": "1acc767b571194e9911efc6ce5f259d59bff7443895b2b439df5de09bd09c9f0",
-      "size": 746
+      "sha256": "dc8eaecfdcc8830b7b4763d13db71ade410eb78e3a6f7a24f3336a8629f0072b",
+      "size": 737
     },
     {
       "path": "frappe_apps/noxus_transport/noxus_transport/__init__.py",
-      "sha256": "8b00e2d13533e3948c60896c844021f943deaea21eee7c546af6cb630120491f",
-      "size": 25
+      "sha256": "27e8febb48ada44153ea2add9969a2c50a9831a74d9755fdd53c549a888b1cc2",
+      "size": 22
     },
     {
       "path": "frappe_apps/noxus_transport/noxus_transport/api/__init__.py",
@@ -697,8 +702,8 @@
     },
     {
       "path": "frappe_apps/noxus_transport/noxus_transport/hooks.py",
-      "sha256": "6f35d26e4797ed35bb44c4c7647c293985058be20adeebffd642dde9ee7439a9",
-      "size": 693
+      "sha256": "950e57604647ddc8afd0e9fd411890883cd7b3bd85ec02665556af4f4d074b7d",
+      "size": 690
     },
     {
       "path": "frappe_apps/noxus_transport/noxus_transport/install.py",
@@ -722,8 +727,8 @@
     },
     {
       "path": "frappe_apps/noxus_transport/pyproject.toml",
-      "sha256": "45bcdf3aa62520f7b8f7ce5090c1d302dc422348690de1432cecf97eaed5a538",
-      "size": 314
+      "sha256": "47a3a19e4828427196f080762809788062b56edd3ce2d755659e7183798a3389",
+      "size": 311
     },
     {
       "path": "frappe_apps/tests/__init__.py",
@@ -752,8 +757,8 @@
     },
     {
       "path": "infrastructure/docker/compose.yaml",
-      "sha256": "d3099eeda88c6deb828262303fe8673eddc430e7d5364f7bb53bf47785d88f3d",
-      "size": 5147
+      "sha256": "ce842800d2b42ca9aa94ef53c2257f27a3332fec69c1860723eef0768a00ca05",
+      "size": 5141
     },
     {
       "path": "infrastructure/docker/images/backend.Dockerfile",
@@ -767,13 +772,13 @@
     },
     {
       "path": "infrastructure/docker/socketio-runtime/package-lock.json",
-      "sha256": "89db26a26215ea02c9f6c15f3e32787d54466b95f0bb39181389ad8f78ec72d1",
-      "size": 10777
+      "sha256": "12101e8897c71edc9176c5e03c8276f71e62f75b60250e747a441565d5db6d6f",
+      "size": 10767
     },
     {
       "path": "infrastructure/docker/socketio-runtime/package.json",
-      "sha256": "9125bcfde28a9e4141631b451bc2ce4944d24dcc7d771232cfab1fa5269be711",
-      "size": 238
+      "sha256": "9f84f44a9ed2874eef82c890f717e58f2188bce5960271edf3f571255d658ac3",
+      "size": 233
     },
     {
       "path": "infrastructure/monitoring/prometheus.yml",
@@ -812,8 +817,8 @@
     },
     {
       "path": "infrastructure/scripts/docker_acceptance.py",
-      "sha256": "a10a252f2811f6898a8d06fd655744e40a1f84b4b1671c3d4ffce33552e75d17",
-      "size": 6951
+      "sha256": "03aad974773740c9b67767beb3699914df39d3feb91d754aaaae8f9177303c53",
+      "size": 12079
     },
     {
       "path": "infrastructure/scripts/restore-site-entrypoint.sh",
@@ -832,8 +837,8 @@
     },
     {
       "path": "infrastructure/scripts/website_docker_acceptance.py",
-      "sha256": "337eee6c7f77de1307b658e9374764870486e24a39c7f349610978bc3c11f28c",
-      "size": 4878
+      "sha256": "247ee2e53e55609eac981c79f8facd875b74a2c08875173d387dc883bdb460c2",
+      "size": 5607
     },
     {
       "path": "infrastructure/tests/test_tenant_isolation.py",
@@ -841,9 +846,9 @@
       "size": 2639
     },
     {
-      "path": "ui/dist/assets/index-BajrYKNB.js",
-      "sha256": "31e7e70993c731ef56bebd45fac244438b1373d28e0ed9087ed3fdd62811f4a2",
-      "size": 302018
+      "path": "ui/dist/assets/index-CAIsxtFd.js",
+      "sha256": "c6effbea858e69d4c86bb0d316ce12446a22e68dd7a38bdee25f1c77d90548bc",
+      "size": 301982
     },
     {
       "path": "ui/dist/assets/index-CPgcO8wi.css",
@@ -852,7 +857,7 @@
     },
     {
       "path": "ui/dist/index.html",
-      "sha256": "96a4b5e0e473b0652cf9d68e865540c9f53b68454d2c2fde28635a306b21a8a5",
+      "sha256": "57e8f9b1f2da9e9c7645e998b3484548fd6c581915121de59d1b65a42a0ffd35",
       "size": 459
     }
   ],
@@ -864,7 +869,7 @@
     "python": "sha256:86f975aca15cf04a40b399eebede9aea7c82eae084d1f1a0a6ef6bcaae871a30",
     "redis": "sha256:f0707c78ea880b293ccdeb410c9c0a8ccae93fe7128799b751333a698b0a39a7"
   },
-  "noxus_version": "1.0.0rc1",
+  "noxus_version": "1.0.0",
   "schema_version": 1,
   "versions": {
     "erpnext": "16.29.0",

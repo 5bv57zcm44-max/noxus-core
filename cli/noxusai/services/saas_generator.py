@@ -11,8 +11,11 @@ from importlib.resources import files
 from pathlib import Path
 from typing import Literal
 
+import yaml
+from noxus_module_sdk.manifest import ModuleManifest
 from noxus_module_sdk.project import ProjectConfig, ProjectType
 from noxus_module_sdk.release import ReleaseManifest
+from noxus_module_sdk.resolver import DependencyResolver, ResolutionError
 from noxusai.context import RuntimeContext
 from noxusai.errors import ExitCode, NoxusError
 from noxusai.services.configuration import write_project
@@ -37,6 +40,23 @@ INDUSTRIES = {
     "professional-services",
     "empty",
 }
+
+
+def _resolve_apps(payload: Path, requested: list[str], *, with_erpnext: bool) -> list[str]:
+    manifests: list[ModuleManifest] = []
+    for path in sorted((payload / "frappe_apps").glob("noxus_*/noxus-module.yml")):
+        raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+        manifests.append(ModuleManifest.model_validate(raw))
+    if not manifests:
+        raise NoxusError("SaaS payload contains no module manifests", exit_code=ExitCode.UNSAFE)
+    try:
+        resolution = DependencyResolver(
+            manifests,
+            erpnext_version="16.29.0" if with_erpnext else None,
+        ).resolve(requested)
+    except ResolutionError as exc:
+        raise NoxusError(f"Module resolution failed: {exc}", exit_code=ExitCode.CONFLICT) from exc
+    return [item.name for item in resolution.installation_order]
 
 
 def _repository_root() -> Path:
@@ -133,13 +153,12 @@ def generate_saas(
     unknown = sorted(set(modules) - SUPPORTED_MODULES.keys())
     if unknown:
         raise NoxusError(f"Unknown SaaS modules: {', '.join(unknown)}", exit_code=ExitCode.USAGE)
-    if "maintenance" in modules and "inventory" not in modules:
-        modules = [*modules, "inventory"]
-    selected = ["noxus_core", *sorted({SUPPORTED_MODULES[item] for item in modules})]
+    requested = ["noxus_core", *sorted({SUPPORTED_MODULES[item] for item in modules})]
     if target.exists():
         raise NoxusError(f"Target already exists: {target}", exit_code=ExitCode.CONFLICT)
     secret_file = _check_secret_file(admin_secret_file)
     if context.dry_run:
+        selected = _resolve_apps(_payload_root(), requested, with_erpnext=with_erpnext)
         return {"project": name, "target": str(target), "apps": selected, "created": False}
 
     staging = target.parent / f".{target.name}.noxus-tmp-{uuid.uuid4().hex[:8]}"
@@ -172,6 +191,8 @@ def generate_saas(
             payload = _payload_root()
             release = _verify_manifest(payload)
             _copy_bundled_payload(payload, staging)
+
+        selected = _resolve_apps(staging, requested, with_erpnext=with_erpnext)
 
         compose_source = staging / "infrastructure" / "docker" / "compose.yaml"
         if not compose_source.is_file():

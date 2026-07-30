@@ -3,7 +3,7 @@ requires = ["setuptools==80.10.2"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "noxus_projects"
-version = "1.0.0rc1"
+version = "1.0.0"
 description = "Small functional NOXUS projects app"
 requires-python = ">=3.14,<3.15"
 license = "GPL-3.0-or-later"

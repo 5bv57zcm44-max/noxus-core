@@ -1,12 +1,12 @@
 schema_version: 1
 name: noxus_education
 display_name: Education
-version: 1.0.0rc1
+version: 1.0.0
 description: Teachers, students, groups, sessions, enrollment, attendance, and subscription metadata
 publisher: NOXUS AI
 license: GPL-3.0-or-later
 category: operations
-dependencies: {required: ["noxus_core>=1.0.0rc1"], recommended: [], conflicts: []}
+dependencies: {required: ["noxus_core>=1.0.0"], recommended: [], conflicts: []}
 platform: {python: ">=3.14,<3.15", frappe: ">=16.28,<17", erpnext: null}
 features: [teachers, students, groups, sessions, enrollments, attendance, subscriptions, qr_identifiers]
 roles: [Education Manager, Supervisor, Teacher, Education Viewer]

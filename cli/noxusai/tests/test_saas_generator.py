@@ -23,7 +23,9 @@ def test_source_payload_generation_adds_maintenance_dependency(tmp_path: Path) -
     assert result["created"] is True
     assert result["apps"] == ["noxus_core", "noxus_inventory", "noxus_maintenance"]
     assert (target / "compose.yaml").is_file()
-    assert "NOXUS_ADMIN_PASSWORD" not in (target / ".env").read_text()
+    environment = (target / ".env").read_text()
+    assert "NOXUS_ADMIN_PASSWORD" not in environment
+    assert "NOXUS_APPS=noxus_core,noxus_inventory,noxus_maintenance" in environment
     generated_ignore = (target / ".gitignore").read_text()
     assert ".env\n" in generated_ignore
     assert "secrets/*.txt\n" in generated_ignore

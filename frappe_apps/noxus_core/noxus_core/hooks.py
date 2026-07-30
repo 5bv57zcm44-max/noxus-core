@@ -6,7 +6,7 @@ app_publisher = "NOXUS AI"
 app_description = "Modular solution control plane"
 app_email = "security@noxus.example"
 app_license = "GPL-3.0-or-later"
-app_version = "1.0.0rc1"
+app_version = "1.0.0"
 
 after_install = "noxus_core.install.after_install"
 before_uninstall = "noxus_core.install.before_uninstall"

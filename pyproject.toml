@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "noxusai"
-version = "1.0.0rc1"
+version = "1.0.0"
 description = "Build secure Django backends and modular Frappe business systems."
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
@@ -12,7 +12,7 @@ license = "GPL-3.0-or-later"
 authors = [{ name = "NOXUS AI" }]
 keywords = ["django", "frappe", "erpnext", "saas", "cli"]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
   "Framework :: Django",
   "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
@@ -65,9 +65,9 @@ dev = [
 noxusai = "noxusai.main:run"
 
 [project.urls]
-Documentation = "https://github.com/AmrShalaby12/noxus-core/tree/main/docs"
-Issues = "https://github.com/AmrShalaby12/noxus-core/issues"
-Repository = "https://github.com/AmrShalaby12/noxus-core"
+Documentation = "https://github.com/5bv57zcm44-max/noxus-core/tree/main/docs"
+Issues = "https://github.com/5bv57zcm44-max/noxus-core/issues"
+Repository = "https://github.com/5bv57zcm44-max/noxus-core"
 
 [tool.hatch.build.targets.wheel]
 packages = ["cli/noxusai", "module_sdk/noxus_module_sdk"]

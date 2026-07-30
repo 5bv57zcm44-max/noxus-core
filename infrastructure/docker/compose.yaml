@@ -1,7 +1,7 @@
 name: ${COMPOSE_PROJECT_NAME:-noxus}
 
 x-backend: &backend
-  image: noxus-runtime:${NOXUS_VERSION:-1.0.0rc1}
+  image: noxus-runtime:${NOXUS_VERSION:-1.0.0}
   build:
     context: ../..
     dockerfile: infrastructure/docker/images/backend.Dockerfile
@@ -134,7 +134,7 @@ services:
     command: [node, /home/frappe/frappe-bench/apps/frappe/socketio.js]
 
   proxy:
-    image: noxus-proxy:${NOXUS_VERSION:-1.0.0rc1}
+    image: noxus-proxy:${NOXUS_VERSION:-1.0.0}
     build:
       context: ../..
       dockerfile: infrastructure/docker/images/proxy.Dockerfile

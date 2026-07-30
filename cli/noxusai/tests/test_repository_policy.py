@@ -2,6 +2,7 @@ import ast
 import hashlib
 import json
 import re
+import tomllib
 from pathlib import Path
 
 import yaml
@@ -64,6 +65,29 @@ def test_original_packages_declare_gpl() -> None:
     assert 'license = "GPL-3.0-or-later"' in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     for pyproject in (ROOT / "frappe_apps").glob("*/pyproject.toml"):
         assert 'license = "GPL-3.0-or-later"' in pyproject.read_text(encoding="utf-8")
+
+
+def test_stable_version_is_synchronized_across_public_artifacts() -> None:
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
+    version = project["version"]
+    assert version == "1.0.0"
+    assert "Development Status :: 5 - Production/Stable" in project["classifiers"]
+    assert project["urls"]["Repository"] == "https://github.com/5bv57zcm44-max/noxus-core"
+    assert f'__version__ = "{version}"' in (ROOT / "cli" / "noxusai" / "__init__.py").read_text(
+        encoding="utf-8"
+    )
+    assert (
+        json.loads((ROOT / "ui" / "package.json").read_text(encoding="utf-8"))["version"] == version
+    )
+    assert (ROOT / "docs" / f"release-notes-{version}.md").is_file()
+    for app_project in (ROOT / "frappe_apps").glob("noxus_*/pyproject.toml"):
+        assert (
+            tomllib.loads(app_project.read_text(encoding="utf-8"))["project"]["version"] == version
+        )
+        manifest = yaml.safe_load(
+            (app_project.parent / "noxus-module.yml").read_text(encoding="utf-8")
+        )
+        assert manifest["version"] == version
 
 
 def test_runtime_image_installs_only_declared_local_apps() -> None:

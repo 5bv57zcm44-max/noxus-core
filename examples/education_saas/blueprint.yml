@@ -3,12 +3,13 @@ name: education-center
 industry: education
 language: both
 modules:
-  - {name: noxus_core, version: 1.0.0rc1, features: [registry, blueprints], install_order: 0}
-  - {name: noxus_education, version: 1.0.0rc1, features: [students, groups, attendance], install_order: 1}
+  - {name: noxus_core, version: 1.0.0, features: [registry, blueprints], install_order: 0}
+  - {name: noxus_education, version: 1.0.0, features: [students, groups, attendance], install_order: 1}
 roles: [Education Manager, Supervisor, Teacher, Education Viewer]
 workflows: [Enrollment Approval]
 integrations: []
 branding: {product_name: NOXUS Education, accent_color: "#4F46E5", default_direction: ltr}
 deployment: {environment: development, with_erpnext: false, http_port: 8080}
-generated_by: 1.0.0rc1
-checksum: f916a62ac0b34a605f53781caa69913b9d992cd3b844f36b514d27ead6604a4a
+generated_by: 1.0.0
+generated_at: 2026-07-30T00:00:00Z
+checksum: 9ded99ec314515027c9d564e6ca34faf151e20a277236adf783b362e9fdb4ac4

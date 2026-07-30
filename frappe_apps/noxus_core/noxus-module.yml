@@ -1,7 +1,7 @@
 schema_version: 1
 name: noxus_core
 display_name: NOXUS Core
-version: 1.0.0rc1
+version: 1.0.0
 description: Module registry, blueprints, permissions, audit, integrations, and deployment state
 publisher: NOXUS AI
 license: GPL-3.0-or-later

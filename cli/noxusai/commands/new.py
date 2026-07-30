@@ -7,7 +7,7 @@ import typer
 from rich.panel import Panel
 from rich.prompt import Confirm, Prompt
 
-from noxusai.context import runtime
+from noxusai.context import RuntimeContext, runtime
 from noxusai.errors import ExitCode, NoxusError
 from noxusai.validators.names import contained_destination, project_slug
 
@@ -18,6 +18,30 @@ app = typer.Typer(
 
 def _csv(value: str) -> list[str]:
     return [item.strip().lower().replace("-", "_") for item in value.split(",") if item.strip()]
+
+
+def _project_name(state: RuntimeContext, value: str | None, *, default: str) -> str:
+    """Return a validated slug and keep interactive validation user-friendly."""
+    if value is not None:
+        try:
+            return project_slug(value)
+        except ValueError as exc:
+            raise NoxusError(str(exc), exit_code=ExitCode.USAGE) from exc
+    if state.json_output:
+        raise NoxusError("--name is required with --json", exit_code=ExitCode.USAGE)
+    while True:
+        candidate = Prompt.ask("Project name", default=default)
+        try:
+            return project_slug(candidate)
+        except ValueError as exc:
+            state.console.print(f"[red]Invalid project name:[/red] {exc}")
+
+
+def _project_target(directory: Path, name: str) -> Path:
+    try:
+        return contained_destination(directory, name)
+    except ValueError as exc:
+        raise NoxusError(str(exc), exit_code=ExitCode.UNSAFE) from exc
 
 
 @app.callback()
@@ -72,12 +96,8 @@ def website(
     yes: bool = typer.Option(False, "--yes", help="Accept the displayed plan."),
 ) -> None:
     state = runtime(ctx)
-    if name is None:
-        if state.json_output:
-            raise NoxusError("--name is required with --json", exit_code=ExitCode.USAGE)
-        name = Prompt.ask("Project name", default="company-website")
-    normalized = project_slug(name)
-    target = contained_destination(directory, normalized)
+    normalized = _project_name(state, name, default="company-website")
+    target = _project_target(directory, normalized)
     selection = _csv(modules)
     summary = {
         "type": "website",
@@ -148,12 +168,8 @@ def saas(
         raise NoxusError(
             "--repository-url and --branch are only valid with --edge", exit_code=ExitCode.USAGE
         )
-    if name is None:
-        if state.json_output:
-            raise NoxusError("--name is required with --json", exit_code=ExitCode.USAGE)
-        name = Prompt.ask("Project name", default="noxus-business")
-    normalized = project_slug(name)
-    target = contained_destination(directory, normalized)
+    normalized = _project_name(state, name, default="noxus-business")
+    target = _project_target(directory, normalized)
     selection = _csv(modules)
     summary = {
         "type": "saas",

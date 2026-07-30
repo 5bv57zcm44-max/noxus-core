@@ -12,7 +12,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-MODULES = (
+FULL_MODULES = (
     "company,website,navigation,hero,about,services,portfolio,team,testimonials,faqs,"
     "blog,contact,newsletter,media,seo,social,legal,analytics,dashboard"
 )
@@ -60,9 +60,16 @@ def compose(
     )
 
 
-def main() -> None:
-    workspace = Path(tempfile.mkdtemp(prefix="noxus-website-acceptance-"))
-    project = workspace / "acceptance-website"
+def exercise_project(
+    workspace: Path,
+    *,
+    name: str,
+    modules: str,
+    auth: str,
+    language: str,
+    exercise_recovery: bool,
+) -> None:
+    project = workspace / name
     compose_attempted = False
     try:
         run(
@@ -73,17 +80,17 @@ def main() -> None:
                 "new",
                 "website",
                 "--name",
-                "acceptance-website",
+                name,
                 "--directory",
                 str(workspace),
                 "--database",
                 "postgres",
                 "--auth",
-                "both",
+                auth,
                 "--language",
-                "both",
+                language,
                 "--modules",
-                MODULES,
+                modules,
                 "--docker",
                 "--no-start",
                 "--yes",
@@ -126,31 +133,32 @@ def main() -> None:
             ],
         )
 
-        run([sys.executable, "-m", "noxusai.main", "backup"], cwd=project)
-        backups = sorted(
-            (project / ".noxus" / "backups").rglob("database.sql"),
-            key=lambda path: path.stat().st_mtime,
-        )
-        if not backups:
-            raise RuntimeError("website backup was not created")
-        run(
-            [
-                sys.executable,
-                "-m",
-                "noxusai.main",
-                "restore",
-                "--archive",
-                str(backups[-1]),
-                "--target",
-                "noxus",
-                "--yes",
-                "--confirm-target",
-                "noxus",
-            ],
-            cwd=project,
-        )
-        compose(project, ["restart", "web"])
-        wait_for("http://127.0.0.1:8000/health/ready", timeout=300)
+        if exercise_recovery:
+            run([sys.executable, "-m", "noxusai.main", "backup"], cwd=project)
+            backups = sorted(
+                (project / ".noxus" / "backups").rglob("database.sql"),
+                key=lambda path: path.stat().st_mtime,
+            )
+            if not backups:
+                raise RuntimeError("website backup was not created")
+            run(
+                [
+                    sys.executable,
+                    "-m",
+                    "noxusai.main",
+                    "restore",
+                    "--archive",
+                    str(backups[-1]),
+                    "--target",
+                    "noxus",
+                    "--yes",
+                    "--confirm-target",
+                    "noxus",
+                ],
+                cwd=project,
+            )
+            compose(project, ["restart", "web"])
+            wait_for("http://127.0.0.1:8000/health/ready", timeout=300)
     except Exception:
         if compose_attempted:
             logs = compose(project, ["logs", "--no-color", "--tail", "500"], check=False)
@@ -159,6 +167,28 @@ def main() -> None:
     finally:
         if compose_attempted:
             compose(project, ["down", "--volumes", "--remove-orphans"], check=False)
+
+
+def main() -> None:
+    workspace = Path(tempfile.mkdtemp(prefix="noxus-website-acceptance-"))
+    try:
+        exercise_project(
+            workspace,
+            name="acceptance-minimal",
+            modules="company",
+            auth="session",
+            language="english",
+            exercise_recovery=False,
+        )
+        exercise_project(
+            workspace,
+            name="acceptance-full",
+            modules=FULL_MODULES,
+            auth="both",
+            language="both",
+            exercise_recovery=True,
+        )
+    finally:
         shutil.rmtree(workspace, ignore_errors=True)
 
 

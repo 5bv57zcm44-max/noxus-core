@@ -234,7 +234,7 @@ def generate_website(
             root=staging,
         )
         write_project(config, staging)
-        lock = {"template_version": "1.0.0rc1", "files": dict(sorted(hashes.items()))}
+        lock = {"template_version": "1.0.0", "files": dict(sorted(hashes.items()))}
         _safe_write(staging, ".noxus/template-lock.json", json.dumps(lock, indent=2) + "\n", hashes)
         staging.rename(target)
     except Exception:

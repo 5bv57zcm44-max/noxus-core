@@ -28,7 +28,7 @@ never create or store a long-lived PyPI token as a workaround.
 2. Dispatch **Prepare release** with `authorize_pypi=false`. Verify the Python distributions,
    `noxus-core.spdx.json`, and GitHub provenance artifacts.
 3. Confirm the version in `pyproject.toml`, release notes, changelog, and tag are identical. Tags are
-   immutable; for this candidate the tag is `v1.0.0rc1`.
+   immutable; for the stable release the tag is `v1.0.0`.
 4. Create and push the signed or annotated tag. The tag workflow reruns the full release gate and
    creates the GitHub release only after the artifacts job succeeds.
 5. Dispatch **Prepare release** from `main` with `authorize_pypi=true`. The protected
@@ -41,10 +41,10 @@ Example post-publication verification:
 
 ```bash
 python -m venv /tmp/noxus-release-check
-/tmp/noxus-release-check/bin/python -m pip install --no-cache-dir noxusai==1.0.0rc1
+/tmp/noxus-release-check/bin/python -m pip install --no-cache-dir noxusai==1.0.0
 /tmp/noxus-release-check/bin/noxusai --version
 /tmp/noxus-release-check/bin/noxusai --json doctor --workflow website
-gh attestation verify noxusai-1.0.0rc1-py3-none-any.whl \
+gh attestation verify noxusai-1.0.0-py3-none-any.whl \
   --repo 5bv57zcm44-max/noxus-core
 ```
 

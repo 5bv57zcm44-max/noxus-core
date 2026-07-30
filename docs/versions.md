@@ -1,6 +1,6 @@
 # Verified version matrix
 
-Verified on 2026-07-27 and pinned for `1.0.0rc1`:
+Verified on 2026-07-30 and pinned for `1.0.0`:
 
 | Component | Pin | Policy |
 | --- | --- | --- |
