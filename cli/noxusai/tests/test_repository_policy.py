@@ -172,6 +172,7 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     dockerfile = (ROOT / "infrastructure" / "docker" / "images" / "backend.Dockerfile").read_text(
         encoding="utf-8"
     )
+    system_environment = dockerfile.split("USER frappe", maxsplit=1)[0]
     build_cleanup = dockerfile.split("bench build --production", maxsplit=1)[1]
     initialization_layer = dockerfile.split("USER frappe", maxsplit=1)[1].split(
         "COPY --chown", maxsplit=1
@@ -182,6 +183,8 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     assert "Pillow==12.3.0" in dockerfile
     assert "pypdf==6.14.2" in dockerfile
     assert "setuptools==83.0.0" in dockerfile
+    assert "msgpack==1.2.1" in system_environment
+    assert "setuptools==83.0.0" in system_environment
     assert "msgpack==1.2.1" in initialization_layer
     assert "setuptools==83.0.0" in initialization_layer
     assert "rm -rf /home/frappe/.cache/pip" in initialization_layer

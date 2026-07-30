@@ -21,7 +21,10 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
     && npm install --global yarn@1.22.22 \
     && test "$(yarn --version)" = "1.22.22" \
     && useradd --create-home --shell /bin/bash frappe \
-    && python -m pip install --no-cache-dir frappe-bench==5.27.0
+    && python -m pip install --no-cache-dir \
+         frappe-bench==5.27.0 \
+         msgpack==1.2.1 \
+         setuptools==83.0.0
 
 USER frappe
 WORKDIR /home/frappe
