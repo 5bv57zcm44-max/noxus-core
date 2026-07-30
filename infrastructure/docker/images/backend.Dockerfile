@@ -76,6 +76,9 @@ RUN set -eu; \
 
 USER root
 RUN rm -rf \
+         /home/frappe/.cache \
+         /root/.cache \
+         /tmp/* \
          /usr/local/bin/npm \
          /usr/local/bin/npx \
          /usr/local/bin/yarn \

@@ -762,8 +762,8 @@
     },
     {
       "path": "infrastructure/docker/images/backend.Dockerfile",
-      "sha256": "b9e9a98d3e54fd292a23fdfdd8d16a16417d241ebd07d3fd3640d08916dd1e78",
-      "size": 4346
+      "sha256": "a56c7ccc533eec24620439fb118bc905cb23ac67933e9059a2d8fceef3304ea1",
+      "size": 4419
     },
     {
       "path": "infrastructure/docker/images/proxy.Dockerfile",

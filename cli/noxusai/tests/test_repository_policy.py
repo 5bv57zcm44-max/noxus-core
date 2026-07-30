@@ -175,6 +175,9 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     )
     system_environment = dockerfile.split("USER frappe", maxsplit=1)[0]
     build_cleanup = dockerfile.split("bench build --production", maxsplit=1)[1]
+    final_cleanup = dockerfile.split("USER root", maxsplit=1)[1].split(
+        "FROM scratch", maxsplit=1
+    )[0]
     initialization_layer = dockerfile.split("USER frappe", maxsplit=1)[1].split(
         "COPY --chown", maxsplit=1
     )[0]
@@ -196,6 +199,9 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     assert "/home/frappe/.cache/pip" in build_cleanup
     assert "/home/frappe/.cache/yarn" in build_cleanup
     assert "USER root" in build_cleanup
+    assert "/home/frappe/.cache" in final_cleanup
+    assert "/root/.cache" in final_cleanup
+    assert "/tmp/*" in final_cleanup  # noqa: S108 - validates image cleanup policy
     assert "FROM scratch AS runtime" in dockerfile
     assert "COPY --from=build / /" in dockerfile
     assert build_cleanup.rfind("USER frappe") < build_cleanup.rfind("EXPOSE 8000 9000")
