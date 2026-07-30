@@ -16,6 +16,11 @@ jobs:
           --tag noxus-runtime:diagnostic
           --file infrastructure/docker/images/backend.Dockerfile
           .
+      - name: Locate embedded SBOM documents
+        run: |
+          docker run --rm --user root --entrypoint /bin/sh noxus-runtime:diagnostic -c '
+            find / -type f \( -name "*.spdx" -o -name "*.spdx.json" -o -name "*.cdx" -o -name "*.cdx.json" \) -print
+          '
       - name: Record detailed Trivy report
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
