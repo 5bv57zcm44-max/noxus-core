@@ -55,6 +55,7 @@ def test_production_container_sources_use_digests_and_never_latest() -> None:
             stripped = line.strip()
             if (
                 stripped.startswith(("FROM ", "image:"))
+                and not stripped.startswith("FROM scratch")
                 and "noxus-runtime:" not in stripped
                 and "noxus-proxy:" not in stripped
             ):
@@ -195,6 +196,8 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     assert "/home/frappe/.cache/pip" in build_cleanup
     assert "/home/frappe/.cache/yarn" in build_cleanup
     assert "USER root" in build_cleanup
+    assert "FROM scratch AS runtime" in dockerfile
+    assert "COPY --from=build / /" in dockerfile
     assert build_cleanup.rfind("USER frappe") < build_cleanup.rfind("EXPOSE 8000 9000")
 
     lock = json.loads(

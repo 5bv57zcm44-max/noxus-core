@@ -1,6 +1,6 @@
 FROM node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d AS node
 
-FROM python:3.14.6-slim-bookworm@sha256:86f975aca15cf04a40b399eebede9aea7c82eae084d1f1a0a6ef6bcaae871a30 AS runtime
+FROM python:3.14.6-slim-bookworm@sha256:86f975aca15cf04a40b399eebede9aea7c82eae084d1f1a0a6ef6bcaae871a30 AS build
 
 ARG FRAPPE_COMMIT=be4728af84ecdec9e3e555f0aca1a7766d3f1811
 ARG ERPNEXT_COMMIT=a5de60c357d531cb31da093f0b86301776965173
@@ -10,7 +10,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     FRAPPE_BENCH_ROOT=/home/frappe/frappe-bench \
     NODE_PATH=/opt/noxus/socketio-runtime/node_modules \
-    PATH=/home/frappe/.local/bin:/home/frappe/frappe-bench/env/bin:$PATH
+    PATH=/home/frappe/.local/bin:/home/frappe/frappe-bench/env/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
 
 COPY --from=node /usr/local/ /usr/local/
 RUN apt-get update && apt-get install --yes --no-install-recommends \
@@ -82,7 +82,20 @@ RUN rm -rf \
          /usr/local/bin/yarnpkg \
          /usr/local/lib/node_modules/npm \
          /usr/local/lib/node_modules/yarn
+
+# Copy the sanitized runtime filesystem into a fresh final stage so superseded
+# package metadata cannot survive in lower image layers and trigger scanners.
+FROM scratch AS runtime
+COPY --from=build / /
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    FRAPPE_BENCH_ROOT=/home/frappe/frappe-bench \
+    NODE_PATH=/opt/noxus/socketio-runtime/node_modules \
+    PATH=/home/frappe/.local/bin:/home/frappe/frappe-bench/env/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+
 USER frappe
+WORKDIR /home/frappe/frappe-bench
 
 EXPOSE 8000 9000
 CMD ["bench", "serve", "--port", "8000"]
