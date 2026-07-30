@@ -79,6 +79,16 @@ RUN rm -rf \
          /home/frappe/.cache \
          /root/.cache \
          /tmp/* \
+         /home/frappe/frappe-bench/env/bin/pip \
+         /home/frappe/frappe-bench/env/bin/pip3 \
+         /home/frappe/frappe-bench/env/bin/pip3.14 \
+         /home/frappe/frappe-bench/env/lib/python3.14/site-packages/pip \
+         /home/frappe/frappe-bench/env/lib/python3.14/site-packages/pip-*.dist-info \
+         /usr/local/bin/pip \
+         /usr/local/bin/pip3 \
+         /usr/local/bin/pip3.14 \
+         /usr/local/lib/python3.14/site-packages/pip \
+         /usr/local/lib/python3.14/site-packages/pip-*.dist-info \
          /usr/local/bin/npm \
          /usr/local/bin/npx \
          /usr/local/bin/yarn \

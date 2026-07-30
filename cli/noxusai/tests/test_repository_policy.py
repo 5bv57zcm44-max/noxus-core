@@ -202,6 +202,10 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     assert "/home/frappe/.cache" in final_cleanup
     assert "/root/.cache" in final_cleanup
     assert "/tmp/*" in final_cleanup  # noqa: S108 - validates image cleanup policy
+    assert "/home/frappe/frappe-bench/env/bin/pip" in final_cleanup
+    assert "/home/frappe/frappe-bench/env/lib/python3.14/site-packages/pip" in final_cleanup
+    assert "/usr/local/bin/pip" in final_cleanup
+    assert "/usr/local/lib/python3.14/site-packages/pip" in final_cleanup
     assert "FROM scratch AS runtime" in dockerfile
     assert "COPY --from=build / /" in dockerfile
     assert build_cleanup.rfind("USER frappe") < build_cleanup.rfind("EXPOSE 8000 9000")
