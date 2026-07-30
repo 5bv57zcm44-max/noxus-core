@@ -175,8 +175,10 @@ def test_frappe_runtime_image_minimizes_and_patches_runtime_dependencies() -> No
     build_cleanup = dockerfile.split("bench build --production", maxsplit=1)[1]
     assert "NODE_PATH=/opt/noxus/socketio-runtime/node_modules" in dockerfile
     assert "cryptography==48.0.1" in dockerfile
+    assert "msgpack==1.2.1" in dockerfile
     assert "Pillow==12.3.0" in dockerfile
     assert "pypdf==6.14.2" in dockerfile
+    assert "setuptools==80.10.2" in dockerfile
     assert "npm ci --prefix /opt/noxus/socketio-runtime" in build_cleanup
     assert "apps/frappe/node_modules" in build_cleanup
     assert "apps/erpnext/banking/node_modules" in build_cleanup

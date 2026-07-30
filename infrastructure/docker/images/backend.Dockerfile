@@ -54,8 +54,10 @@ RUN set -eu; \
        fi \
     && ./env/bin/python -m pip install --no-cache-dir \
          cryptography==48.0.1 \
+         msgpack==1.2.1 \
          Pillow==12.3.0 \
          pypdf==6.14.2 \
+         setuptools==80.10.2 \
     && bench build --production \
     && npm ci --prefix /opt/noxus/socketio-runtime --omit=dev --ignore-scripts --no-audit --no-fund \
     && rm -rf \

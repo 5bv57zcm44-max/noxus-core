@@ -25,6 +25,11 @@ All notable changes follow Keep a Changelog and Semantic Versioning.
   tracebacks, while allowing interactive users to retry immediately.
 - Make project slugs match their documented lowercase letters, numbers, and hyphens contract.
 
+### Security
+
+- Override the vulnerable transitive Frappe/ERPNext runtime installations with `msgpack 1.2.1`
+  and `setuptools 80.10.2`, while retaining the blocking fixable HIGH/CRITICAL image gate.
+
 ## [1.0.0rc1] - 2026-07-28
 
 ### Added
